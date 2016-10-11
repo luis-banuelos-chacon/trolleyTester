@@ -7,100 +7,36 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>480</height>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Trolley Tester</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="4,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="5,1">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>-1</number>
       </property>
-      <widget class="QWidget" name="tabConnection">
-       <attribute name="title">
-        <string>Connection</string>
-       </attribute>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>751</width>
-          <height>63</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Controller A - 24V</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLineEdit" name="galilAAddress"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="galilAConnectButton">
-           <property name="text">
-            <string>Connect</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>80</y>
-          <width>751</width>
-          <height>63</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Controller B - 48V</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLineEdit" name="galilBAddress"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="galilBConnectButton">
-           <property name="text">
-            <string>Connect</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
-      </widget>
      </widget>
     </item>
     <item>
-     <widget class="QPlainTextEdit" name="logView"/>
+     <widget class="QPlainTextEdit" name="logView">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>27</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

@@ -22,6 +22,45 @@ class QLogger(log.Handler):
         self.widget.appendPlainText(msg)
 
 
+class ConnectionTab(ViewBase['ConnectionTab'], ViewForm['ConnectionTab']):
+
+    def __init__(self, galil, parent=None):
+        super(ViewBase['ConnectionTab'], self).__init__(parent)
+        self.setupUi(self)
+
+        # get reference to galil controllers
+        self.galil = galil
+
+        # widgets into lists
+        self.address = []
+        self.address.append(self.address_0)
+        self.address.append(self.address_1)
+        self.connect_btn = []
+        self.connect_btn.append(self.connect_0)
+        self.connect_btn.append(self.connect_1)
+
+        # connect signals
+        self.connect_btn[0].clicked.connect(lambda i=0: self.connect(i))
+        self.connect_btn[1].clicked.connect(lambda i=1: self.connect(i))
+
+    def connect(self, id):
+        if self.galil[id].connected:
+            # disconnect
+            self.galil[id].close()
+            self.connect_btn[id].setText('Connect')
+
+        else:
+            # connect
+            self.connect_btn[id].setDown(True)
+
+            if self.galil[id].open(str(self.address[id].text())):
+                self.connect_btn[id].setText('Disconnect')
+            else:
+                self.connect_btn[id].setText('Connect')
+
+            self.connect_btn[id].setDown(False)
+
+
 class MainWindow(ViewBase['MainWindow'], ViewForm['MainWindow']):
 
     def __init__(self, parent=None):
@@ -33,60 +72,17 @@ class MainWindow(ViewBase['MainWindow'], ViewForm['MainWindow']):
 
     def setupBackend(self):
         # Galil Controllers
-        self.galilA = GalilController()
-        self.galilB = GalilController()
+        self.galil = []
+        self.galil.append(GalilController('Galil 0 - 24V'))
+        self.galil.append(GalilController('Galil 1 - 48V'))
 
         # setup logging window
         QLogger(self.logView)
 
     def setupFrontend(self):
-        # Connect buttons
-        self.galilAConnectButton.clicked.connect(self.galilAConnect)
-        self.galilBConnectButton.clicked.connect(self.galilBConnect)
-
-    def galilAConnect(self):
-        if self.galilA.connected is not True:
-            # get address
-            address = str(self.galilAAddress.text())
-
-            # blank button
-            self.galilAConnectButton.setDown(True)
-            self.galilAConnectButton.setText('Connecting...')
-
-            # try to open connection
-            ret = self.galilA.open(address)
-
-            if ret is True:
-                self.galilAConnectButton.setDown(False)
-                self.galilAConnectButton.setText('Disconnect')
-            else:
-                self.galilAConnectButton.setDown(False)
-                self.galilAConnectButton.setText('Connect')
-        else:
-            self.galilA.close()
-            self.galilAConnectButton.setText('Connect')
-
-    def galilBConnect(self):
-        if self.galilB.connected is not True:
-            # get address
-            address = str(self.galilBAddress.text())
-
-            # blank button
-            self.galilBConnectButton.setDown(True)
-            self.galilBConnectButton.setText('Connecting...')
-
-            # try to open connection
-            ret = self.galilB.open(address)
-
-            if ret is True:
-                self.galilBConnectButton.setDown(False)
-                self.galilBConnectButton.setText('Disconnect')
-            else:
-                self.galilBConnectButton.setDown(False)
-                self.galilBConnectButton.setText('Connect')
-        else:
-            self.galilB.close()
-            self.galilBConnectButton.setText('Connect')
+        # Connection Tab
+        self.connectionTab = ConnectionTab(self.galil, self)
+        self.tabWidget.addTab(self.connectionTab, 'Connection')
 
 
 if __name__ == '__main__':

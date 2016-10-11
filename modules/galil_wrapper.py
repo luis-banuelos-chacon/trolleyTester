@@ -4,9 +4,11 @@ import gclib
 
 class GalilController(object):
 
-    def __init__(self, address=None, baud=None):
+    def __init__(self, name=None, address=None, baud=None):
         '''Initializes a Galil Controller.'''
         self._g = gclib.py()            # instance of gclib class
+
+        self.name = name                # coontroller name
 
         self.connected = False          # connection flag
 
@@ -29,16 +31,16 @@ class GalilController(object):
         try:
             self._g.GOpen(cmd_string)
             self.connected = True
-            log.info('Connected to controller at (' + str(address) + ')')
+            log.info('[{}] Connected at ({})'.format(self.name, address))
             return True
 
         except gclib.GclibError:
-            log.error('No response from controller at (' + str(address) + ')')
+            log.error('[{}] No response at ({})'.format(self.name, address))
             return False
 
     def close(self):
         '''Closes active connection to controller.'''
-        log.info('Disconnected from controller.')
+        log.info('[{}] Disconnected.'.format(self.name))
         self._g.GClose()
         self.connected = False
 
@@ -48,7 +50,7 @@ class GalilController(object):
             return self._g.GInfo()
 
         except gclib.GclibError:
-            log.error('No active connection.')
+            log.error('[{}] No active connection.'.format(self.name))
 
     def command(self, command):
         '''Wrapper for GCommand.'''
