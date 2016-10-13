@@ -9,7 +9,6 @@ class GalilController(object):
         self._g = gclib.py()            # instance of gclib class
 
         self.name = name                # coontroller name
-
         self.connected = False          # connection flag
 
         if address is not None:
@@ -54,7 +53,12 @@ class GalilController(object):
 
     def command(self, command):
         '''Wrapper for GCommand.'''
-        return self._g.GCommand(command)
+        try:
+            ret = self._g.GCommand(command)
+        except gclib.GclibError:
+            ret = '-1'
+        log.debug('{} -> {}'.format(command, ret))
+        return ret
 
     ##
     # System
@@ -105,8 +109,9 @@ class GalilController(object):
 
 class GalilAxis(GalilController):
 
-    def __init__(self, axis, parent=None):
+    def __init__(self, axis, parent=None, name=None):
         '''Binds to a gclib instance from a GalilWrapper.'''
+        self.name = name
         self._parent = parent
         self._g = parent._g
         self._axis = axis.upper()
@@ -143,11 +148,11 @@ class GalilAxis(GalilController):
         self.command('MO' + self._axis)
 
     def begin(self):
-        '''Begins motion on all axes.'''
+        '''Begins motion.'''
         self.command('BG' + self._axis)
 
     def stop(self):
-        '''Stops motion before end of move on all axes.'''
+        '''Stops motion before end of move.'''
         self.command('ST' + self._axis)
 
     def wait(self):
@@ -165,6 +170,16 @@ class GalilAxis(GalilController):
     @axis.setter
     def axis(self, value):
         self._axis = str(value).upper()
+
+    # configuration
+
+    @property
+    def brush_mode(self):
+        return self.getData('BR')
+
+    @brush_mode.setter
+    def brush_mode(self, value):
+        self.setData('BR', value)
 
     # Independent Axis Positioning
 

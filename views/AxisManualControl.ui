@@ -15,9 +15,14 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="mainBox">
+     <property name="styleSheet">
+      <string notr="true">QSpinBox { qproperty-maximum: 10000000 }
+QSpinBox { qproperty-minimum: 0 }
+QSpinBox { qproperty-singleStep: 100 }</string>
+     </property>
      <property name="title">
-      <string>GroupBox</string>
+      <string>Axis Name</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -28,7 +33,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="information">
+        <widget class="QWidget" name="informationWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -42,48 +47,64 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,2">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="positionLabel">
             <property name="text">
              <string>Position</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="positionEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_7">
+           <widget class="QLabel" name="torqueLabel">
             <property name="text">
              <string>Torque</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_2"/>
+           <widget class="QLineEdit" name="torqueEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_8">
+           <widget class="QLabel" name="velocityLabel">
             <property name="text">
              <string>Velocity</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_3"/>
+           <widget class="QLineEdit" name="velocityEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="label_9">
+           <widget class="QLabel" name="errorLabel">
             <property name="text">
              <string>Error</string>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="lineEdit_4"/>
+           <widget class="QLineEdit" name="errorEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="timed">
+        <widget class="QWidget" name="timedWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -97,7 +118,24 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="speedLabel">
+            <property name="text">
+             <string>Speed (units/s)</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="speedSpinBox">
+            <property name="maximum">
+             <number>10000000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="timeLabel">
             <property name="text">
              <string>Time (ms)</string>
             </property>
@@ -106,11 +144,11 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_2"/>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="timeSpinBox"/>
           </item>
-          <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_4">
+          <item row="2" column="0">
+           <widget class="QPushButton" name="timedMinusButton">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -128,8 +166,8 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_5">
+          <item row="2" column="1">
+           <widget class="QPushButton" name="timedPlusButton">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -149,7 +187,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="jog">
+        <widget class="QWidget" name="jogWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -163,7 +201,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="jogLabel">
             <property name="text">
              <string>Jog Speed</string>
             </property>
@@ -173,10 +211,10 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox"/>
+           <widget class="QSpinBox" name="jogSpeedSpinBox"/>
           </item>
           <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="jogMinusButton">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -195,7 +233,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="jogPlusButton">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -215,7 +253,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="configuration">
+        <widget class="QWidget" name="configurationWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -229,41 +267,41 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,2">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="accelerationLabel">
             <property name="text">
              <string>Acceleration</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_3"/>
+           <widget class="QSpinBox" name="accelerationSpinBox"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
+           <widget class="QLabel" name="decelerationLabel">
             <property name="text">
              <string>Deceleration</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBox_4"/>
+           <widget class="QSpinBox" name="decelerationSpinBox"/>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="torqueLimitLabel">
             <property name="text">
              <string>Torque Limit</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBox_5"/>
+           <widget class="QSpinBox" name="torqueLimitSpinBox"/>
           </item>
          </layout>
         </widget>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="stopButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
