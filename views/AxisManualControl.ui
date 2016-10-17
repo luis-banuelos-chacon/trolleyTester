@@ -31,7 +31,7 @@ QSpinBox { qproperty-singleStep: 100 }</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="informationWidget">
          <property name="geometry">
@@ -120,7 +120,7 @@ QSpinBox { qproperty-singleStep: 100 }</string>
           <item row="0" column="0">
            <widget class="QLabel" name="speedLabel">
             <property name="text">
-             <string>Speed (units/s)</string>
+             <string>Speed</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -129,6 +129,9 @@ QSpinBox { qproperty-singleStep: 100 }</string>
           </item>
           <item row="0" column="1">
            <widget class="QSpinBox" name="speedSpinBox">
+            <property name="suffix">
+             <string> ct/s</string>
+            </property>
             <property name="maximum">
              <number>10000000</number>
             </property>
@@ -137,7 +140,7 @@ QSpinBox { qproperty-singleStep: 100 }</string>
           <item row="1" column="0">
            <widget class="QLabel" name="timeLabel">
             <property name="text">
-             <string>Time (ms)</string>
+             <string>Time</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -145,7 +148,14 @@ QSpinBox { qproperty-singleStep: 100 }</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="timeSpinBox"/>
+           <widget class="QSpinBox" name="timeSpinBox">
+            <property name="specialValueText">
+             <string/>
+            </property>
+            <property name="suffix">
+             <string> ms</string>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
            <widget class="QPushButton" name="timedMinusButton">
@@ -211,7 +221,11 @@ QSpinBox { qproperty-singleStep: 100 }</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="jogSpeedSpinBox"/>
+           <widget class="QSpinBox" name="jogSpeedSpinBox">
+            <property name="suffix">
+             <string> ct/s</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="jogMinusButton">
@@ -294,7 +308,7 @@ QSpinBox { qproperty-singleStep: 100 }</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="torqueLimitSpinBox"/>
+           <widget class="QDoubleSpinBox" name="torqueLimitSpinBox"/>
           </item>
          </layout>
         </widget>

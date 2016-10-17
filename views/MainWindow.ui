@@ -27,6 +27,9 @@
     </item>
     <item>
      <widget class="QPlainTextEdit" name="logView">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>

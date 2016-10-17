@@ -111,7 +111,11 @@ class GalilAxis(GalilController):
 
     def __init__(self, axis, parent=None, name=None):
         '''Binds to a gclib instance from a GalilWrapper.'''
-        self.name = name
+        if name is not None:
+            self.name = name
+        else:
+            self.name = str(axis)
+
         self._parent = parent
         self._g = parent._g
         self._axis = axis.upper()
