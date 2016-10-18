@@ -216,12 +216,30 @@ class ProgramTab(ViewBase['ProgramTab'], ViewForm['ProgramTab']):
                         axis.jog_speed = speed
                         axis.enable()
                         axis.begin()
+                        timer = QtCore.QTimer(self)
+                        timer.timeout.connect(lambda x=axis: self.stop(x))
+                        timer.setSingleShot(True)
+                        timer.start(duration)
 
+                    if action == 'jog move':
+                        axis.jog_speed = speed
+                        axis.enable()
+                        axis.begin()
 
+                    if action == 'stop':
+                        self.stop(axis)
 
+                    data.remove(item)
 
-    def stop(self):
-        pass
+    def stop(self, axis=None):
+        if axis:
+            axis.stop()
+            axis.disable()
+        else:
+            for axis in self.axes:
+                axis.stop()
+                axis.disable()
+
 
 class ConnectionTab(ViewBase['ConnectionTab'], ViewForm['ConnectionTab']):
 
