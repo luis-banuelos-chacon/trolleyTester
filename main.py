@@ -2,6 +2,7 @@ from PyQt4 import QtGui, QtCore
 from views import ViewBase, ViewForm
 from modules import GalilController, GalilAxis
 import logging as log
+import time
 import sys
 
 
@@ -15,11 +16,11 @@ class QLogger(log.Handler):
         self.setFormatter(log.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 
         log.getLogger().addHandler(self)
-        log.getLogger().setLevel(log.INFO)
+        log.getLogger().setLevel(log.DEBUG)
 
     def emit(self, record):
         msg = self.format(record)
-        self.widget.appendPlainText(msg)
+        #self.widget.appendPlainText(msg)
 
 
 class ProgramTableModel(QtCore.QAbstractTableModel):
@@ -122,7 +123,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
 
             if key in ['time', 'speed', 'duration']:
                 editor = QtGui.QSpinBox(parent)
-                editor.setRange(0, 1000000)
+                editor.setRange(-1000000, 1000000)
                 editor.setSingleStep(100)
                 if key in ['time', 'duration']:
                     editor.setSuffix(' ms')
@@ -181,6 +182,11 @@ class ProgramTab(ViewBase['ProgramTab'], ViewForm['ProgramTab']):
         self.addButton.clicked.connect(self.add)
         self.removeButton.clicked.connect(self.remove)
 
+        self.runButton.clicked.connect(self.run)
+        self.stopButton.clicked.connect(self.stop)
+
+        self._worker = None
+
     def add(self):
         index = self.tableView.selectionModel().currentIndex()
 
@@ -198,48 +204,104 @@ class ProgramTab(ViewBase['ProgramTab'], ViewForm['ProgramTab']):
             self.model.removeRow(index.row())
 
     def run(self):
-        pass
+        self._worker = ProgramThread(self.model._data, self)
+        self._worker.finished.connect(self._worker.deleteLater)
+        self._worker.start()
 
-    def execute(self):
-        data = self.model._data
-        time = 0
+    def stop(self):
+        if self._worker:
+            self._worker.stop()
 
-        while True:
-            for item in data:
-                if item['time'] == time:
-                    action = item['action']
-                    axis = item['axis']
-                    speed = item['speed']
-                    duration = item['duration']
 
-                    if action == 'timed move':
-                        axis.jog_speed = speed
-                        axis.enable()
-                        axis.begin()
-                        timer = QtCore.QTimer(self)
-                        timer.timeout.connect(lambda x=axis: self.stop(x))
-                        timer.setSingleShot(True)
-                        timer.start(duration)
+class ProgramThread(QtCore.QThread):
 
-                    if action == 'jog move':
-                        axis.jog_speed = speed
-                        axis.enable()
-                        axis.begin()
+    def __init__(self, program, parent=None):
+        super(ProgramThread, self).__init__(parent)
 
-                    if action == 'stop':
-                        self.stop(axis)
+        # make an actual copy that we can modify
+        self._program = list(program)
 
-                    data.remove(item)
+        # get all axes
+        self._axes = list(set([item['axis'] for item in self._program]))
 
-    def stop(self, axis=None):
+        # stop flag
+        self._stop = False
+
+    def stop(self):
+        self._stop = True
+
+    def stopAxis(self, axis=None):
         if axis:
             axis.stop()
+            axis.wait()
             axis.disable()
         else:
-            for axis in self.axes:
+            for axis in self._axes:
                 axis.stop()
+                axis.wait()
                 axis.disable()
 
+    def jogAxis(self, axis, speed):
+        axis.jog = speed
+        axis.enable()
+        axis.begin()
+
+    def parse(self, program):
+        # parsed event list
+        # list of (time, method, args)
+        events = []
+
+        for item in program:
+            start = item['time']
+            axis = item['axis']
+            speed = item['speed']
+            duration = item['duration']
+            action = item['action']
+
+            if action == 'timed move':
+                events.append((start, self.jogAxis, [axis, speed]))
+                events.append((start+duration, self.stopAxis, [axis]))
+                continue
+
+            if action == 'jog move':
+                events.append((start, self.jogAxis, [axis, speed]))
+                continue
+
+            if action == 'stop':
+                events.append((start, self.stopAxis, [axis]))
+                continue
+
+        return events
+
+    def run(self):
+        # initial time
+        initial = time.time()*1000.0
+
+        # parse program
+        events = self.parse(self._program)
+
+        while events:
+            # current time
+            elapsed = (time.time()*1000.0) - initial
+
+            # execute events
+            for event in list(events):
+                start = event[0]
+                method = event[1]
+                args = event[2]
+
+                # execute and remove event
+                if elapsed > start:
+                    method(*args)
+                    events.remove(event)
+
+            # stop on flag
+            if self._stop:
+                self.stopAxis()
+                break
+
+            # 1ms resolution
+            time.sleep(0.001)
 
 class ConnectionTab(ViewBase['ConnectionTab'], ViewForm['ConnectionTab']):
 
@@ -372,7 +434,10 @@ class AxisManualControl(ViewBase['AxisManualControl'], ViewForm['AxisManualContr
     def stop(self):
         '''Stops the current move.'''
         self._axis.stop()
-        self._axis.wait()
+        try:
+            self._axis.wait()
+        except:
+            pass
         self._axis.disable()
 
     def setJogSpeed(self, speed):
@@ -403,6 +468,7 @@ class MainWindow(ViewBase['MainWindow'], ViewForm['MainWindow']):
 
         # Axis
         self.axes = []
+        #self.axes.append(GalilAxis('X', self.galil[0], 'Testbench'))
         self.axes.append(GalilAxis('A', self.galil[0], 'Hopper Shaker (Back)'))
         self.axes.append(GalilAxis('B', self.galil[0], 'Trough Shaker (Back)'))
         self.axes.append(GalilAxis('A', self.galil[1], 'Lifter Motor (Back)'))
