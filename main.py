@@ -6,21 +6,22 @@ import time
 import sys
 
 
-class QLogger(log.Handler):
-    def __init__(self, widget):
-        super(QLogger, self).__init__()
+class QtSignals(QtCore.QObject):
+    '''Object for emmiting signals from non-QObjects'''
+    append_log = QtCore.pyqtSignal(str)
 
-        self.widget = widget
-        self.widget.setReadOnly(True)
 
+class QtLogger(log.Handler):
+    def __init__(self):
+        super(QtLogger, self).__init__()
         self.setFormatter(log.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-
         log.getLogger().addHandler(self)
         log.getLogger().setLevel(log.DEBUG)
+        self.signals = QtSignals()
 
     def emit(self, record):
         msg = self.format(record)
-        #self.widget.appendPlainText(msg)
+        self.signals.append_log.emit(msg)
 
 
 class ProgramTableModel(QtCore.QAbstractTableModel):
@@ -168,7 +169,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
 class ProgramTab(ViewBase['ProgramTab'], ViewForm['ProgramTab']):
 
     def __init__(self, axes, parent=None):
-        super(ViewBase['ProgramTab'], self).__init__(parent)
+        super(ProgramTab, self).__init__(parent)
         self.setupUi(self)
 
         self._axes = axes
@@ -303,10 +304,11 @@ class ProgramThread(QtCore.QThread):
             # 1ms resolution
             time.sleep(0.001)
 
+
 class ConnectionTab(ViewBase['ConnectionTab'], ViewForm['ConnectionTab']):
 
     def __init__(self, galil, parent=None):
-        super(ViewBase['ConnectionTab'], self).__init__(parent)
+        super(ConnectionTab, self).__init__(parent)
         self.setupUi(self)
 
         # get reference to galil controllers
@@ -335,6 +337,7 @@ class ConnectionTab(ViewBase['ConnectionTab'], ViewForm['ConnectionTab']):
             self.connect_btn[id].setDown(True)
 
             if self.galil[id].open(str(self.address[id].text())):
+                self.galil[id].disable()
                 self.connect_btn[id].setText('Disconnect')
             else:
                 self.connect_btn[id].setText('Connect')
@@ -347,7 +350,7 @@ class AxisManualControl(ViewBase['AxisManualControl'], ViewForm['AxisManualContr
     _refresh_rate = 100
 
     def __init__(self, axis, parent=None):
-        super(ViewBase['AxisManualControl'], self).__init__(parent)
+        super(AxisManualControl, self).__init__(parent)
         self.setupUi(self)
 
         self._axis = axis
@@ -452,7 +455,7 @@ class AxisManualControl(ViewBase['AxisManualControl'], ViewForm['AxisManualContr
 class MainWindow(ViewBase['MainWindow'], ViewForm['MainWindow']):
 
     def __init__(self, parent=None):
-        super(ViewBase['MainWindow'], self).__init__(parent)
+        super(MainWindow, self).__init__(parent)
         self.setupUi(self)
 
         self.setupBackend()
@@ -468,7 +471,7 @@ class MainWindow(ViewBase['MainWindow'], ViewForm['MainWindow']):
 
         # Axis
         self.axes = []
-        #self.axes.append(GalilAxis('X', self.galil[0], 'Testbench'))
+        self.axes.append(GalilAxis('X', self.galil[0], 'Testbench'))
         self.axes.append(GalilAxis('A', self.galil[0], 'Hopper Shaker (Back)'))
         self.axes.append(GalilAxis('B', self.galil[0], 'Trough Shaker (Back)'))
         self.axes.append(GalilAxis('A', self.galil[1], 'Lifter Motor (Back)'))
@@ -477,7 +480,7 @@ class MainWindow(ViewBase['MainWindow'], ViewForm['MainWindow']):
         self.axes.append(GalilAxis('B', self.galil[1], 'Lifter Motor (Front)'))
 
         # setup logging window
-        QLogger(self.logView)
+        QtLogger().signals.append_log.connect(self.logView.appendPlainText)
 
     def setupFrontend(self):
         # Connection Tab

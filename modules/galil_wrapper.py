@@ -161,7 +161,10 @@ class GalilAxis(GalilController):
 
     def wait(self):
         '''Blocks until the motion completes.'''
-        self._g.GMotionComplete(self._axis)
+        try:
+            self._g.GMotionComplete(self._axis)
+        except:
+            pass
 
     ##
     # Properties
