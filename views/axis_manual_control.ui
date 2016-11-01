@@ -17,9 +17,9 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="mainBox">
      <property name="styleSheet">
-      <string notr="true">QSpinBox { qproperty-maximum: 10000000 }
+      <string notr="true">QSpinBox { qproperty-maximum: 1000000 }
 QSpinBox { qproperty-minimum: 0 }
-QSpinBox { qproperty-singleStep: 100 }</string>
+QSpinBox { qproperty-singleStep: 1 }</string>
      </property>
      <property name="title">
       <string>Axis Name</string>
@@ -162,7 +162,7 @@ QSpinBox { qproperty-singleStep: 100 }</string>
              <string> ct/s</string>
             </property>
             <property name="maximum">
-             <number>10000000</number>
+             <number>1000000</number>
             </property>
            </widget>
           </item>
@@ -337,7 +337,27 @@ QSpinBox { qproperty-singleStep: 100 }</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QDoubleSpinBox" name="torqueLimitSpinBox"/>
+           <widget class="QDoubleSpinBox" name="torqueLimitSpinBox">
+            <property name="maximum">
+             <double>100.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="convFactorLabel">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Encoder counts to effective revolutions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Conv. Factor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="convFactorSpinBox"/>
           </item>
          </layout>
         </widget>

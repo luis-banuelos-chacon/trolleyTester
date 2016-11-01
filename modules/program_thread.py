@@ -1,6 +1,7 @@
 from PyQt4 import QtCore
 import time
 
+
 class ProgramThread(QtCore.QThread):
 
     instruction_changed = QtCore.pyqtSignal(int)
@@ -70,7 +71,7 @@ class ProgramThread(QtCore.QThread):
                 events.append((idx, start, self.stopAxis, [axis]))
                 continue
 
-        events = sorted(events, key=lambda l: l[0])
+        events = sorted(events, key=lambda l: l[1])
         return events
 
     def run(self):
@@ -112,4 +113,3 @@ class ProgramThread(QtCore.QThread):
                 current = 0
             else:
                 break
-

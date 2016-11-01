@@ -28,6 +28,7 @@ class AxisManualControl(View['AxisManualControl']):
         self.accelerationSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('acceleration', v))
         self.decelerationSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('deceleration', v))
         self.torqueLimitSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('torque_limit', v))
+        self.convFactorSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('conversion_factor', v))
 
         # stop
         self.stopButton.clicked.connect(self.stop)
@@ -49,6 +50,7 @@ class AxisManualControl(View['AxisManualControl']):
             self.accelerationSpinBox.setValue(int(self._axis.acceleration))
             self.decelerationSpinBox.setValue(int(self._axis.deceleration))
             self.torqueLimitSpinBox.setValue(float(self._axis.torque_limit))
+            self.convFactorSpinBox.setValue(float(self._axis.conversion_factor))
 
     def showEvent(self, event):
         super(AxisManualControl, self).showEvent(event)
@@ -102,7 +104,6 @@ class AxisManualControl(View['AxisManualControl']):
 
     def setJogSpeed(self, speed):
         '''Sets new jog speed on the fly.'''
-        print(self._axis.jog)
         if self._axis.jog >= 0:
             self._axis.jog = speed
         else:

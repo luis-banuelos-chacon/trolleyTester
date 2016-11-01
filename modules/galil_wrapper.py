@@ -120,6 +120,9 @@ class GalilAxis(GalilController):
         self._g = parent._g
         self._axis = axis.upper()
 
+        # vars
+        self._conversion_factor = 1.0
+
     ##
     # Methods
     ##
@@ -188,55 +191,67 @@ class GalilAxis(GalilController):
     def brush_mode(self, value):
         self.setData('BR', value)
 
+    @property
+    def conversion_factor(self):
+        try:
+            return self._conversion_factor
+        except:
+            self._conversion_factor = 1
+            return self._conversion_factor
+
+    @conversion_factor.setter
+    def conversion_factor(self, value):
+        self._conversion_factor = float(value)
+
     # Independent Axis Positioning
 
     @property
     def position_relative(self):
-        return self.getData('PR')
+        return self.getData('PR') / self._conversion_factor
 
     @position_relative.setter
     def position_relative(self, value):
-        self.setData('PR', value)
+        self.setData('PR', value * self._conversion_factor)
 
     @property
     def position_absolute(self):
-        return self.getData('PA')
+        return self.getData('PA') / self._conversion_factor
 
     @position_absolute.setter
     def position_absolute(self, value):
-        self.setData('PA', value)
+        self.setData('PA', value * self._conversion_factor)
 
     @property
     def speed(self):
-        return self.getData('SP')
+        return self.getData('SP') / self._conversion_factor
 
     @speed.setter
     def speed(self, value):
-        self.setData('SP', value)
+        self.setData('SP', value * self._conversion_factor)
 
     @property
     def acceleration(self):
-        return self.getData('AC')
+        return self.getData('AC') / self._conversion_factor
 
     @acceleration.setter
     def acceleration(self, value):
-        self.setData('AC', value)
+        self.setData('AC', value * self._conversion_factor)
 
     @property
     def deceleration(self):
-        return self.getData('DC')
+        return self.getData('DC') / self._conversion_factor
 
     @deceleration.setter
     def deceleration(self, value):
-        self.setData('DC', value)
+        self.setData('DC', value * self._conversion_factor)
 
     @property
     def increment_position(self):
-        return self.getData('IP')
+        return self.getData('IP') / self._conversion_factor
 
     @increment_position.setter
     def increment_position(self, value):
-        self.setData('IP', value)
+        self.setData('IP', value * self._conversion_factor)
 
     @property
     def time_constant(self):
@@ -256,21 +271,21 @@ class GalilAxis(GalilController):
 
     @property
     def in_position(self):
-        return self.getData('MC')
+        return self.getData('MC') / self._conversion_factor
 
     @in_position.setter
     def in_position(self, value):
-        self.setData('MC', value)
+        self.setData('MC', value * self._conversion_factor)
 
     # Independent Jogging
 
     @property
     def jog(self):
-        return self.getData('JG')
+        return self.getData('JG') / self._conversion_factor
 
     @jog.setter
     def jog(self, value):
-        self.setData('JG', value)
+        self.setData('JG', value * self._conversion_factor)
 
     # Filter / Control
 
@@ -326,7 +341,7 @@ class GalilAxis(GalilController):
 
     @property
     def position(self):
-        return float(self.command('TP' + self._axis))
+        return float(self.command('TP' + self._axis)) / self._conversion_factor
 
     @property
     def torque(self):
@@ -334,8 +349,8 @@ class GalilAxis(GalilController):
 
     @property
     def velocity(self):
-        return float(self.command('TV' + self._axis))
+        return float(self.command('TV' + self._axis)) / self._conversion_factor
 
     @property
     def error(self):
-        return float(self.command('TE' + self._axis))
+        return float(self.command('TE' + self._axis)) / self._conversion_factor

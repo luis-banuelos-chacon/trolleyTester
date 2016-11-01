@@ -42,13 +42,12 @@ class MainWindow(View['MainWindow']):
 
         # Axis
         self.axes = []
-        self.axes.append(GalilAxis('X', self.galil[0], 'Testbench'))
-        self.axes.append(GalilAxis('A', self.galil[0], 'Hopper Shaker (Back)'))
-        self.axes.append(GalilAxis('B', self.galil[0], 'Trough Shaker (Back)'))
-        self.axes.append(GalilAxis('A', self.galil[1], 'Lifter Motor (Back)'))
-        self.axes.append(GalilAxis('E', self.galil[0], 'Hopper Shaker (Front)'))
-        self.axes.append(GalilAxis('F', self.galil[0], 'Trough Shaker (Front)'))
-        self.axes.append(GalilAxis('B', self.galil[1], 'Lifter Motor (Front)'))
+        self.axes.append(GalilAxis('A', self.galil[0], 'Hopper (Back)'))
+        self.axes.append(GalilAxis('B', self.galil[0], 'Trough (Back)'))
+        self.axes.append(GalilAxis('A', self.galil[1], 'Lifter (Back)'))
+        self.axes.append(GalilAxis('E', self.galil[0], 'Hopper (Front)'))
+        self.axes.append(GalilAxis('F', self.galil[0], 'Trough (Front)'))
+        self.axes.append(GalilAxis('B', self.galil[1], 'Lifter (Front)'))
 
         # setup logging window
         QtLogger().signals.append_log.connect(self.logView.appendPlainText)
@@ -57,9 +56,6 @@ class MainWindow(View['MainWindow']):
         # Connection Tab
         self.connectionTab = ConnectionTab(self.galil, self)
         self.tabWidget.addTab(self.connectionTab, 'Connection')
-
-        # self.testTab = AxisManualControl(self.axis, self)
-        # self.tabWidget.addTab(self.testTab, 'Test')
 
         # Autofill Axis
         layout = QtGui.QHBoxLayout()
