@@ -25,6 +25,8 @@ class QtLogger(log.Handler):
 
 class MainWindow(View['MainWindow']):
 
+    closing = QtCore.pyqtSignal()
+
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
@@ -66,7 +68,7 @@ class MainWindow(View['MainWindow']):
         # Autofill Axis
         layout = QtGui.QHBoxLayout()
         for i, axis in enumerate(self.axes):
-            layout.addWidget(AxisManualControl(axis))
+            layout.addWidget(AxisManualControl(axis, self))
 
             if i % 3 >= 2 or i == len(self.axes) - 1:
                 tab = QtGui.QWidget()
@@ -77,6 +79,10 @@ class MainWindow(View['MainWindow']):
         # Program Tab
         self.programTab = ProgramTab(self.axes, self)
         self.tabWidget.addTab(self.programTab, 'Program')
+
+    def closeEvent(self, event):
+        self.closing.emit()
+        event.accept()
 
 
 if __name__ == '__main__':

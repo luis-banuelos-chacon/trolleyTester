@@ -10,7 +10,11 @@ class AxisManualControl(View['AxisManualControl']):
         super(AxisManualControl, self).__init__(parent)
         self.setupUi(self)
 
+        # controller
         self._axis = axis
+
+        # settings
+        self.readSettings()
 
         # set name
         self.mainBox.setTitle(self._axis.name)
@@ -45,10 +49,23 @@ class AxisManualControl(View['AxisManualControl']):
         # tool box changed
         self.toolBox.currentChanged.connect(self.toolBoxChanged)
 
+        # connect window closing event
+        if parent:
+            parent.closing.connect(self.writeSettings)
+
+    def readSettings(self):
+        settings = QtCore.QSettings()
+
+        settings.beginGroup(self._axis.name)
+        self._axis.conversion_factor = settings.value('conversion_factor', 1.0).toPyObject()
+        settings.endGroup()
+
     def writeSettings(self):
         settings = QtCore.QSettings()
 
-        settings.beginGroup()
+        settings.beginGroup(self._axis.name)
+        settings.setValue('conversion_factor', self._axis.conversion_factor)
+        settings.endGroup()
 
     def toolBoxChanged(self, index):
         if self.toolBox.currentWidget() is self.configurationWidget:
@@ -68,11 +85,12 @@ class AxisManualControl(View['AxisManualControl']):
     def refresh(self):
         '''Updates all views with data from controller.'''
         # information
-        if self.toolBox.currentWidget() is self.informationWidget:
-            self.positionEdit.setText(str(self._axis.position))
-            self.velocityEdit.setText(str(self._axis.velocity))
-            self.torqueEdit.setText(str(self._axis.torque))
-            self.errorEdit.setText(str(self._axis.error))
+        if self._axis.controller.connected is True:
+            if self.toolBox.currentWidget() is self.informationWidget:
+                self.positionEdit.setText(str(self._axis.position))
+                self.velocityEdit.setText(str(self._axis.velocity))
+                self.torqueEdit.setText(str(self._axis.torque))
+                self.errorEdit.setText(str(self._axis.error))
 
     def timed(self, direction='+'):
         '''Moves for a specified time at speed.'''

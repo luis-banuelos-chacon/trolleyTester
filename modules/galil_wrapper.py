@@ -116,6 +116,7 @@ class GalilAxis(GalilController):
         else:
             self.name = str(axis)
 
+        self.controller = parent
         self._parent = parent
         self._g = parent._g
         self._axis = axis.upper()
