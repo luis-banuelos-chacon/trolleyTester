@@ -24,8 +24,9 @@
 	qproperty-maximum: 1000000;
 	qproperty-minimum: 0;
 	qproperty-singleStep: 1;
+	qproperty-alignment: center;
 	border: 2px inset grey;
-	padding-top: 10px;
+	padding: 5px;
 }
 QSpinBox::up-button {
 	subcontrol-position: right;
@@ -192,11 +193,11 @@ QSpinBox::down-button {
             </item>
             <item row="0" column="1">
              <widget class="QSpinBox" name="speedSpinBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+              <property name="wrapping">
+               <bool>false</bool>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
               </property>
               <property name="suffix">
                <string> ct/s</string>
