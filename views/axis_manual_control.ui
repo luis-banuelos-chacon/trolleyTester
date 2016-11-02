@@ -14,6 +14,9 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="mainBox">
      <property name="styleSheet">
@@ -67,8 +70,8 @@ QSpinBox { qproperty-singleStep: 1 }</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>294</width>
-           <height>165</height>
+           <width>312</width>
+           <height>183</height>
           </rect>
          </property>
          <attribute name="label">
