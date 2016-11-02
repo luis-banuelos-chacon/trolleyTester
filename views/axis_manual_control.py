@@ -45,6 +45,11 @@ class AxisManualControl(View['AxisManualControl']):
         # tool box changed
         self.toolBox.currentChanged.connect(self.toolBoxChanged)
 
+    def writeSettings(self):
+        settings = QtCore.QSettings()
+
+        settings.beginGroup()
+
     def toolBoxChanged(self, index):
         if self.toolBox.currentWidget() is self.configurationWidget:
             self.accelerationSpinBox.setValue(int(self._axis.acceleration))

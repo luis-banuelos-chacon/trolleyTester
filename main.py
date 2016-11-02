@@ -29,6 +29,12 @@ class MainWindow(View['MainWindow']):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
 
+        # identify app for QSettings
+        QtCore.QCoreApplication.setOrganizationName('HP')
+        QtCore.QCoreApplication.setOrganizationDomain('hp.com')
+        QtCore.QCoreApplication.setApplicationName('Trolley Tester')
+
+        # initialize
         self.setupBackend()
         self.setupFrontend()
 
