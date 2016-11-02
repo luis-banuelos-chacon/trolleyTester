@@ -20,9 +20,23 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="mainBox">
      <property name="styleSheet">
-      <string notr="true">QSpinBox { qproperty-maximum: 1000000 }
-QSpinBox { qproperty-minimum: 0 }
-QSpinBox { qproperty-singleStep: 1 }</string>
+      <string notr="true">QSpinBox { 
+	qproperty-maximum: 1000000;
+	qproperty-minimum: 0;
+	qproperty-singleStep: 1;
+	border: 2px inset grey;
+	padding-top: 10px;
+}
+QSpinBox::up-button {
+	subcontrol-position: right;
+	width: 30px;
+	height: 30px;
+}
+QSpinBox::down-button {
+	subcontrol-position: left;
+	width: 30px;
+	height: 30px;
+}</string>
      </property>
      <property name="title">
       <string>Axis Name</string>
@@ -60,7 +74,7 @@ QSpinBox { qproperty-singleStep: 1 }</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="tabSpacing">
          <number>0</number>
@@ -71,7 +85,7 @@ QSpinBox { qproperty-singleStep: 1 }</string>
            <x>0</x>
            <y>0</y>
            <width>312</width>
-           <height>183</height>
+           <height>203</height>
           </rect>
          </property>
          <attribute name="label">
@@ -141,55 +155,86 @@ QSpinBox { qproperty-singleStep: 1 }</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>294</width>
-           <height>165</height>
+           <width>312</width>
+           <height>203</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Timed</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="speedLabel">
-            <property name="text">
-             <string>Speed</string>
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMaximumSize</enum>
+          </property>
+          <item row="0" column="0" colspan="2">
+           <layout class="QFormLayout" name="formLayout">
+            <property name="fieldGrowthPolicy">
+             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
+            <property name="labelAlignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="speedSpinBox">
-            <property name="suffix">
-             <string> ct/s</string>
+            <property name="formAlignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
-            <property name="maximum">
-             <number>1000000</number>
+            <property name="horizontalSpacing">
+             <number>25</number>
             </property>
-           </widget>
+            <item row="0" column="0">
+             <widget class="QLabel" name="speedLabel">
+              <property name="text">
+               <string>Speed</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="speedSpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="suffix">
+               <string> ct/s</string>
+              </property>
+              <property name="maximum">
+               <number>1000000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="timeLabel">
+              <property name="text">
+               <string>Time</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="timeSpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="specialValueText">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string> ms</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="timeLabel">
-            <property name="text">
-             <string>Time</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="timeSpinBox">
-            <property name="specialValueText">
-             <string/>
-            </property>
-            <property name="suffix">
-             <string> ms</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
            <widget class="QPushButton" name="timedMinusButton">
             <property name="minimumSize">
              <size>
@@ -208,7 +253,7 @@ QSpinBox { qproperty-singleStep: 1 }</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="1" column="1">
            <widget class="QPushButton" name="timedPlusButton">
             <property name="minimumSize">
              <size>
@@ -234,8 +279,8 @@ QSpinBox { qproperty-singleStep: 1 }</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>294</width>
-           <height>165</height>
+           <width>312</width>
+           <height>203</height>
           </rect>
          </property>
          <attribute name="label">
@@ -304,8 +349,8 @@ QSpinBox { qproperty-singleStep: 1 }</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>294</width>
-           <height>165</height>
+           <width>312</width>
+           <height>203</height>
           </rect>
          </property>
          <attribute name="label">
@@ -371,7 +416,7 @@ QSpinBox { qproperty-singleStep: 1 }</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="text">
