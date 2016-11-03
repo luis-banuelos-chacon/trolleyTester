@@ -24,39 +24,21 @@
 	qproperty-alignment: AlignCenter;
 	font: 8pt;
 }
-QSpinBox {
+QAbstractSpinBox {
 	font: 8pt;
 	qproperty-maximum: 1000000;
 	qproperty-minimum: 0;
 	qproperty-singleStep: 1;
 	border: 2px inset grey;
 	min-height: 32px;
+	qproperty-accelerated: true;
 }
-QSpinBox::up-button {
+QAbstractSpinBox::up-button {
 	subcontrol-position: right;
 	width: 30px;
 	height: 30px;
 }
-QSpinBox::down-button {
-	subcontrol-position: left;
-	width: 30px;
-	height: 30px;
-}
-
-QDoubleSpinBox {
-	font: 8pt;
-	qproperty-maximum: 1000000;
-	qproperty-minimum: 0;
-	qproperty-singleStep: 1;
-	border: 2px inset grey;
-	min-height: 32px;
-}
-QDoubleSpinBox::up-button {
-	subcontrol-position: right;
-	width: 30px;
-	height: 30px;
-}
-QDoubleSpinBox::down-button {
+QAbstractSpinBox::down-button {
 	subcontrol-position: left;
 	width: 30px;
 	height: 30px;
@@ -92,7 +74,7 @@ QDoubleSpinBox::down-button {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="tabSpacing">
          <number>0</number>
@@ -186,7 +168,7 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>185</height>
+           <height>181</height>
           </rect>
          </property>
          <attribute name="label">
@@ -307,7 +289,7 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>185</height>
+           <height>181</height>
           </rect>
          </property>
          <attribute name="label">
@@ -393,7 +375,7 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>185</height>
+           <height>181</height>
           </rect>
          </property>
          <attribute name="label">

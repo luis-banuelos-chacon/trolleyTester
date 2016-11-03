@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>627</width>
+    <width>654</width>
     <height>300</height>
    </rect>
   </property>
@@ -14,8 +14,27 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLineEdit { font: 24pt; }
-QPushButton { font: 24pt; }</string>
+   <string notr="true">QPushButton { font: 14pt; }
+QAbstractSpinBox {
+	font: 14pt;
+	qproperty-maximum: 255;
+	qproperty-minimum: 0;
+	qproperty-singleStep: 1;
+	border: 2px inset grey;
+	min-height: 32px;
+	qproperty-accelerated: true;
+	qproperty-wrapping: true;
+}
+QAbstractSpinBox::up-button {
+	subcontrol-position: right;
+	width: 30px;
+	height: 30px;
+}
+QAbstractSpinBox::down-button {
+	subcontrol-position: left;
+	width: 30px;
+	height: 30px;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -23,21 +42,50 @@ QPushButton { font: 24pt; }</string>
      <property name="title">
       <string>Galil 0 - 24V</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLineEdit" name="address_0">
-        <property name="placeholderText">
-         <string>IP Address</string>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QSpinBox" name="ip0_0">
+        <property name="maximum">
+         <number>256</number>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="ip1_0">
+        <property name="maximum">
+         <number>256</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QSpinBox" name="ip2_0">
+        <property name="maximum">
+         <number>256</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QSpinBox" name="ip3_0">
+        <property name="maximum">
+         <number>256</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="4">
        <widget class="QPushButton" name="connect_0">
         <property name="minimumSize">
          <size>
-          <width>200</width>
+          <width>150</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
         </property>
         <property name="text">
          <string>Connect</string>
@@ -50,23 +98,52 @@ QPushButton { font: 24pt; }</string>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Galil 1 - 48V</string>
+      <string>Galil 0 - 24V</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLineEdit" name="address_1">
-        <property name="placeholderText">
-         <string>IP Address</string>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QSpinBox" name="ip0_1">
+        <property name="maximum">
+         <number>256</number>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="ip1_1">
+        <property name="maximum">
+         <number>256</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QSpinBox" name="ip2_1">
+        <property name="maximum">
+         <number>256</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QSpinBox" name="ip3_1">
+        <property name="maximum">
+         <number>256</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="4">
        <widget class="QPushButton" name="connect_1">
         <property name="minimumSize">
          <size>
-          <width>200</width>
+          <width>150</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
         </property>
         <property name="text">
          <string>Connect</string>

@@ -12,9 +12,9 @@ class ConnectionTab(View['ConnectionTab']):
         self.galil = galil
 
         # widgets into lists
-        self.address = []
-        self.address.append(self.address_0)
-        self.address.append(self.address_1)
+        self.ip = []
+        self.ip.append((self.ip0_0, self.ip1_0, self.ip2_0, self.ip3_0))
+        self.ip.append((self.ip0_1, self.ip1_1, self.ip2_1, self.ip3_1))
         self.connect_btn = []
         self.connect_btn.append(self.connect_0)
         self.connect_btn.append(self.connect_1)
@@ -34,17 +34,21 @@ class ConnectionTab(View['ConnectionTab']):
         settings = QtCore.QSettings()
 
         settings.beginGroup('ConnectionTab')
-        self.address[0].setText(settings.value('address_0', '').toPyObject())
-        self.address[1].setText(settings.value('address_1', '').toPyObject())
+        for i in range(4):
+            self.ip[0][i].setValue(int(settings.value('ip_0', '0.0.0.0').toPyObject().split('.')[i]))
+            self.ip[1][i].setValue(int(settings.value('ip_1', '0.0.0.0').toPyObject().split('.')[i]))
         settings.endGroup()
 
     def writeSettings(self):
         settings = QtCore.QSettings()
 
         settings.beginGroup('ConnectionTab')
-        settings.setValue('address_0', self.address[0].text())
-        settings.setValue('address_1', self.address[1].text())
+        settings.setValue('ip_0', self.getIP(self.ip[0]))
+        settings.setValue('ip_1', self.getIP(self.ip[1]))
         settings.endGroup()
+
+    def getIP(self, ip):
+        return '{}.{}.{}.{}'.format(ip[0].value(), ip[1].value(), ip[2].value(), ip[3].value())
 
     def connect(self, id):
         if self.galil[id].connected:
@@ -56,7 +60,7 @@ class ConnectionTab(View['ConnectionTab']):
             # connect
             self.connect_btn[id].setDown(True)
 
-            if self.galil[id].open(str(self.address[id].text())):
+            if self.galil[id].open(self.getIP(self.ip[id])):
                 self.galil[id].disable()
                 self.connect_btn[id].setText('Disconnect')
             else:

@@ -25,6 +25,27 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0" rowspan="4">
        <widget class="QTableView" name="tableView">
+        <property name="styleSheet">
+         <string notr="true">QAbstractSpinBox {
+	font: 8pt;
+	qproperty-maximum: 1000000;
+	qproperty-minimum: -1000000;
+	qproperty-singleStep: 1;
+	border: 2px inset grey;
+	min-height: 32px;
+	qproperty-accelerated: true;
+}
+QAbstractSpinBox::up-button {
+	subcontrol-position: right;
+	width: 30px;
+	height: 30px;
+}
+QAbstractSpinBox::down-button {
+	subcontrol-position: left;
+	width: 30px;
+	height: 30px;
+}</string>
+        </property>
         <property name="textElideMode">
          <enum>Qt::ElideLeft</enum>
         </property>
