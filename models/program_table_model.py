@@ -47,7 +47,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
                 return '{} ms'.format(value)
 
             if key == 'speed':
-                return '{} ct/s'.format(value)
+                return '{} rev/s'.format(value)
 
             if key == 'axis':
                 return value.name
@@ -101,12 +101,15 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
 
             if key in ['time', 'speed', 'duration']:
                 editor = QtGui.QSpinBox(parent)
-                editor.setRange(-1000000, 1000000)
-                editor.setSingleStep(100)
+
                 if key in ['time', 'duration']:
                     editor.setSuffix(' ms')
+                    editor.setRange(0, 1000000)
+                    editor.setSingleStep(10)
                 if key == 'speed':
-                    editor.setSuffix(' ct/s')
+                    editor.setSuffix(' rev/s')
+                    editor.setRange(-1000000, 1000000)
+                    editor.setSingleStep(1)
 
             elif key == 'axis':
                 editor = QtGui.QComboBox(parent)

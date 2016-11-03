@@ -28,9 +28,6 @@
         <property name="styleSheet">
          <string notr="true">QAbstractSpinBox {
 	font: 8pt;
-	qproperty-maximum: 1000000;
-	qproperty-minimum: -1000000;
-	qproperty-singleStep: 1;
 	border: 2px inset grey;
 	min-height: 32px;
 	qproperty-accelerated: true;
