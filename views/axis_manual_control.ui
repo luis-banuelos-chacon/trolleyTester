@@ -20,7 +20,12 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="mainBox">
      <property name="styleSheet">
-      <string notr="true">QSpinBox { 
+      <string notr="true">QLabel {
+	qproperty-alignment: AlignCenter;
+	font: 8pt;
+}
+QSpinBox {
+	font: 8pt;
 	qproperty-maximum: 1000000;
 	qproperty-minimum: 0;
 	qproperty-singleStep: 1;
@@ -38,7 +43,8 @@ QSpinBox::down-button {
 	height: 30px;
 }
 
-QDoubleSpinBox { 
+QDoubleSpinBox {
+	font: 8pt;
 	qproperty-maximum: 1000000;
 	qproperty-minimum: 0;
 	qproperty-singleStep: 1;
@@ -66,9 +72,6 @@ QDoubleSpinBox::down-button {
       <bool>true</bool>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>5</number>
-      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -77,9 +80,6 @@ QDoubleSpinBox::down-button {
       </property>
       <property name="rightMargin">
        <number>0</number>
-      </property>
-      <property name="bottomMargin">
-       <number>9</number>
       </property>
       <item>
        <widget class="QToolBox" name="toolBox">
@@ -92,7 +92,7 @@ QDoubleSpinBox::down-button {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="tabSpacing">
          <number>0</number>
@@ -103,13 +103,25 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>182</height>
+           <height>181</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Information</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,2">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="positionLabel">
             <property name="text">
@@ -174,24 +186,27 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>182</height>
+           <height>185</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Timed</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetMaximumSize</enum>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
           </property>
           <item row="0" column="0" colspan="2">
-           <layout class="QFormLayout" name="formLayout">
-            <property name="formAlignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
-            <property name="horizontalSpacing">
-             <number>40</number>
-            </property>
+           <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,2">
             <item row="0" column="0">
              <widget class="QLabel" name="speedLabel">
               <property name="text">
@@ -292,24 +307,27 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>182</height>
+           <height>185</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Jog</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetMaximumSize</enum>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
           </property>
           <item row="0" column="0" colspan="2">
-           <layout class="QFormLayout" name="formLayout_2">
-            <property name="formAlignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
-            <property name="horizontalSpacing">
-             <number>40</number>
-            </property>
+           <layout class="QGridLayout" name="gridLayout" columnstretch="1,2">
             <item row="0" column="0">
              <widget class="QLabel" name="jogLabel">
               <property name="text">
@@ -375,13 +393,25 @@ QDoubleSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>182</height>
+           <height>185</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Configuration</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,2">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="accelerationLabel">
             <property name="text">
@@ -391,6 +421,19 @@ QDoubleSpinBox::down-button {
           </item>
           <item row="0" column="1">
            <widget class="QSpinBox" name="accelerationSpinBox">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>36</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="suffix">
              <string> rev/s/s</string>
             </property>
