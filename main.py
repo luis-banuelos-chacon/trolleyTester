@@ -31,6 +31,9 @@ class MainWindow(View['MainWindow']):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
 
+        # maximize
+        self.showMaximized()
+
         # identify app for QSettings
         QtCore.QCoreApplication.setOrganizationName('HP')
         QtCore.QCoreApplication.setOrganizationDomain('hp.com')
