@@ -25,7 +25,7 @@
 	qproperty-minimum: 0;
 	qproperty-singleStep: 1;
 	border: 2px inset grey;
-	min-height: 34px;
+	min-height: 32px;
 }
 QSpinBox::up-button {
 	subcontrol-position: right;
