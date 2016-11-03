@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>320</width>
-    <height>374</height>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,6 +33,24 @@ QSpinBox::up-button {
 	height: 30px;
 }
 QSpinBox::down-button {
+	subcontrol-position: left;
+	width: 30px;
+	height: 30px;
+}
+
+QDoubleSpinBox { 
+	qproperty-maximum: 1000000;
+	qproperty-minimum: 0;
+	qproperty-singleStep: 1;
+	border: 2px inset grey;
+	min-height: 32px;
+}
+QDoubleSpinBox::up-button {
+	subcontrol-position: right;
+	width: 30px;
+	height: 30px;
+}
+QDoubleSpinBox::down-button {
 	subcontrol-position: left;
 	width: 30px;
 	height: 30px;
@@ -74,7 +92,7 @@ QSpinBox::down-button {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="tabSpacing">
          <number>0</number>
@@ -85,7 +103,7 @@ QSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>312</width>
-           <height>203</height>
+           <height>238</height>
           </rect>
          </property>
          <attribute name="label">
@@ -156,7 +174,7 @@ QSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>312</width>
-           <height>203</height>
+           <height>238</height>
           </rect>
          </property>
          <attribute name="label">
@@ -168,17 +186,11 @@ QSpinBox::down-button {
           </property>
           <item row="0" column="0" colspan="2">
            <layout class="QFormLayout" name="formLayout">
-            <property name="fieldGrowthPolicy">
-             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-            </property>
-            <property name="labelAlignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
             <property name="formAlignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
             <property name="horizontalSpacing">
-             <number>25</number>
+             <number>50</number>
             </property>
             <item row="0" column="0">
              <widget class="QLabel" name="speedLabel">
@@ -199,7 +211,7 @@ QSpinBox::down-button {
                <bool>true</bool>
               </property>
               <property name="suffix">
-               <string> ct/s</string>
+               <string> rev/s</string>
               </property>
               <property name="maximum">
                <number>1000000</number>
@@ -280,29 +292,39 @@ QSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>312</width>
-           <height>203</height>
+           <height>238</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Jog</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="jogLabel">
-            <property name="text">
-             <string>Jog Speed</string>
+          <item row="0" column="0" colspan="2">
+           <layout class="QFormLayout" name="formLayout_2">
+            <property name="formAlignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
+            <property name="horizontalSpacing">
+             <number>50</number>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="jogSpeedSpinBox">
-            <property name="suffix">
-             <string> ct/s</string>
-            </property>
-           </widget>
+            <item row="0" column="0">
+             <widget class="QLabel" name="jogLabel">
+              <property name="text">
+               <string>Jog Speed</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="jogSpeedSpinBox">
+              <property name="suffix">
+               <string> rev/s</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="1" column="0">
            <widget class="QPushButton" name="jogMinusButton">
@@ -350,7 +372,7 @@ QSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>312</width>
-           <height>203</height>
+           <height>238</height>
           </rect>
          </property>
          <attribute name="label">
@@ -365,7 +387,11 @@ QSpinBox::down-button {
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="accelerationSpinBox"/>
+           <widget class="QSpinBox" name="accelerationSpinBox">
+            <property name="suffix">
+             <string> rev/s/s</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="decelerationLabel">
@@ -375,7 +401,11 @@ QSpinBox::down-button {
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="decelerationSpinBox"/>
+           <widget class="QSpinBox" name="decelerationSpinBox">
+            <property name="suffix">
+             <string> rev/s/s</string>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="torqueLimitLabel">
@@ -386,11 +416,17 @@ QSpinBox::down-button {
           </item>
           <item row="2" column="1">
            <widget class="QDoubleSpinBox" name="torqueLimitSpinBox">
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="suffix">
+             <string> V</string>
+            </property>
             <property name="maximum">
-             <double>100.000000000000000</double>
+             <double>1000000.000000000000000</double>
             </property>
             <property name="singleStep">
-             <double>0.100000000000000</double>
+             <double>1.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -405,7 +441,11 @@ QSpinBox::down-button {
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="convFactorSpinBox"/>
+           <widget class="QSpinBox" name="convFactorSpinBox">
+            <property name="suffix">
+             <string> cts/rev</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
