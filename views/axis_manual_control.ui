@@ -24,9 +24,8 @@
 	qproperty-maximum: 1000000;
 	qproperty-minimum: 0;
 	qproperty-singleStep: 1;
-	qproperty-alignment: center;
 	border: 2px inset grey;
-	padding: 5px;
+	min-height: 34px;
 }
 QSpinBox::up-button {
 	subcontrol-position: right;
