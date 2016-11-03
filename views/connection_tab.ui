@@ -24,6 +24,7 @@ QAbstractSpinBox {
 	min-height: 32px;
 	qproperty-accelerated: true;
 	qproperty-wrapping: true;
+	qproperty-alignment: AlignCenter;
 }
 QAbstractSpinBox::up-button {
 	subcontrol-position: right;
@@ -46,28 +47,28 @@ QAbstractSpinBox::down-button {
       <item row="0" column="0">
        <widget class="QSpinBox" name="ip0_0">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <widget class="QSpinBox" name="ip1_0">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
        <widget class="QSpinBox" name="ip2_0">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
        <widget class="QSpinBox" name="ip3_0">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
@@ -104,28 +105,28 @@ QAbstractSpinBox::down-button {
       <item row="0" column="0">
        <widget class="QSpinBox" name="ip0_1">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <widget class="QSpinBox" name="ip1_1">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
        <widget class="QSpinBox" name="ip2_1">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
        <widget class="QSpinBox" name="ip3_1">
         <property name="maximum">
-         <number>256</number>
+         <number>255</number>
         </property>
        </widget>
       </item>
