@@ -17,6 +17,7 @@ class ProgramTab(View['ProgramTab']):
         self.tableView.setModel(self.model)
         self.tableView.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.tableView.setItemDelegate(self.model.ItemDelegate())
+        self.tableView.setEditTriggers(QtGui.QAbstractItemView.CurrentChanged)
 
         self.addButton.clicked.connect(self.add)
         self.removeButton.clicked.connect(self.remove)

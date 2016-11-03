@@ -34,6 +34,7 @@
 	border: 2px inset grey;
 	min-height: 32px;
 	qproperty-accelerated: true;
+	qproperty-alignment: AlignCenter;
 }
 QAbstractSpinBox::up-button {
 	subcontrol-position: right;
