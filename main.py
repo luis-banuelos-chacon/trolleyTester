@@ -1,5 +1,6 @@
+#!/usr/bin/python2
 from PyQt4 import QtGui, QtCore
-from views import View, ProgramTab, ConnectionTab, AxisManualControl
+from views import View, ProgramTab, ConnectionTab, AxisSimple, AxisTwoState
 from modules import GalilController, GalilAxis
 import logging as log
 import sys
@@ -32,7 +33,7 @@ class MainWindow(View['MainWindow']):
         self.setupUi(self)
 
         # maximize
-        self.showMaximized()
+        #self.showMaximized()
 
         # identify app for QSettings
         QtCore.QCoreApplication.setOrganizationName('HP')
@@ -49,16 +50,23 @@ class MainWindow(View['MainWindow']):
         self.galil.append(GalilController('Galil 0 - 24V'))
         self.galil.append(GalilController('Galil 1 - 48V'))
 
-        # self.axis = GalilAxis('X', self.galil[0])
-
         # Axis
-        self.axes = []
-        self.axes.append(GalilAxis('A', self.galil[0], 'Hopper (Back)'))
-        self.axes.append(GalilAxis('B', self.galil[0], 'Trough (Back)'))
-        self.axes.append(GalilAxis('A', self.galil[1], 'Lifter (Back)'))
-        self.axes.append(GalilAxis('E', self.galil[0], 'Hopper (Front)'))
-        self.axes.append(GalilAxis('F', self.galil[0], 'Trough (Front)'))
-        self.axes.append(GalilAxis('B', self.galil[1], 'Lifter (Front)'))
+        self.axes = {
+            'Back': {
+                'Hopper': GalilAxis('A', self.galil[0], 'Hopper (Back)'),
+                'Trough': GalilAxis('B', self.galil[0], 'Trough (Back)'),
+                'Lifter': GalilAxis('A', self.galil[1], 'Lifter (Back)'),
+                'Vane': GalilAxis('C', self.galil[0], 'Vane (Back)')
+            },
+            'Front': {
+                'Hopper': GalilAxis('E', self.galil[0], 'Hopper (Front)'),
+                'Trough': GalilAxis('F', self.galil[0], 'Trough (Front)'),
+                'Lifter': GalilAxis('B', self.galil[1], 'Lifter (Front)'),
+                'Vane': GalilAxis('D', self.galil[0], 'Vane (Front)')
+            }
+        }
+
+        # self.axis = GalilAxis('A', self.galil[0], 'Test')
 
         # setup logging window
         QtLogger().signals.append_log.connect(self.logView.appendPlainText)
@@ -68,20 +76,41 @@ class MainWindow(View['MainWindow']):
         self.connectionTab = ConnectionTab(self.galil, self)
         self.tabWidget.addTab(self.connectionTab, 'Connection')
 
-        # Autofill Axis
-        layout = QtGui.QHBoxLayout()
-        for i, axis in enumerate(self.axes):
-            layout.addWidget(AxisManualControl(axis, self))
+        # widget = AxisTwoState(self.axis)
+        # self.tabWidget.addTab(widget, 'TwoState')
 
-            if i % 3 >= 2 or i == len(self.axes) - 1:
-                tab = QtGui.QWidget()
-                tab.setLayout(layout)
-                self.tabWidget.addTab(tab, 'Page ' + str(i / 3))
-                layout = QtGui.QHBoxLayout()
+        # widget = AxisSimple(self.axis)
+        # self.tabWidget.addTab(widget, 'Simple')
+
+        # Front Simple Axis
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(AxisSimple(self.axes['Front']['Hopper']))
+        layout.addWidget(AxisSimple(self.axes['Front']['Trough']))
+        layout.addWidget(AxisSimple(self.axes['Front']['Lifter']))
+        tab = QtGui.QWidget()
+        tab.setLayout(layout)
+        self.tabWidget.addTab(tab, 'Front Motors')
+
+        # Back Simple Axis
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(AxisSimple(self.axes['Back']['Hopper']))
+        layout.addWidget(AxisSimple(self.axes['Back']['Trough']))
+        layout.addWidget(AxisSimple(self.axes['Back']['Lifter']))
+        tab = QtGui.QWidget()
+        tab.setLayout(layout)
+        self.tabWidget.addTab(tab, 'Back Motors')
+
+        # Vane Axis
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(AxisTwoState(self.axes['Front']['Vane']))
+        layout.addWidget(AxisTwoState(self.axes['Back']['Vane']))
+        tab = QtGui.QWidget()
+        tab.setLayout(layout)
+        self.tabWidget.addTab(tab, 'Vanes')
 
         # Program Tab
-        self.programTab = ProgramTab(self.axes, self)
-        self.tabWidget.addTab(self.programTab, 'Program')
+        # self.programTab = ProgramTab(self.axes, self)
+        # self.tabWidget.addTab(self.programTab, 'Program')
 
     def closeEvent(self, event):
         self.closing.emit()

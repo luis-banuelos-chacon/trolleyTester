@@ -2,12 +2,12 @@ from PyQt4 import QtCore
 from . import View
 
 
-class AxisManualControl(View['AxisManualControl']):
+class AxisSimple(View['AxisSimple']):
 
     _refresh_rate = 100
 
     def __init__(self, axis, parent=None):
-        super(AxisManualControl, self).__init__(parent)
+        super(AxisSimple, self).__init__(parent)
         self.setupUi(self)
 
         # controller
@@ -35,16 +35,11 @@ class AxisManualControl(View['AxisManualControl']):
         self.convFactorSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('conversion_factor', v))
 
         # stop
-        self.stopButton.clicked.connect(self.stop)
+        self.stopButton.clicked.connect(self._axis.cancel)
 
         # data polling
         self._autoRefresh = QtCore.QTimer(self)
         self._autoRefresh.timeout.connect(self.refresh)
-
-        # timer
-        self._stopTimer = QtCore.QTimer(self)
-        self._stopTimer.setSingleShot(True)
-        self._stopTimer.timeout.connect(self.stop)
 
         # tool box changed
         self.toolBox.currentChanged.connect(self.toolBoxChanged)
@@ -58,6 +53,9 @@ class AxisManualControl(View['AxisManualControl']):
 
         settings.beginGroup(self._axis.name)
         self._axis.conversion_factor = settings.value('conversion_factor', 1.0).toPyObject()
+        self.speedSpinBox.setValue(settings.value('speed', 1).toPyObject())
+        self.timeSpinBox.setValue(settings.value('time', 1).toPyObject())
+        self.jogSpeedSpinBox.setValue(settings.value('jog_speed', 1).toPyObject())
         settings.endGroup()
 
     def writeSettings(self):
@@ -65,6 +63,9 @@ class AxisManualControl(View['AxisManualControl']):
 
         settings.beginGroup(self._axis.name)
         settings.setValue('conversion_factor', self._axis.conversion_factor)
+        settings.setValue('speed', self.speedSpinBox.value())
+        settings.setValue('time', self.timeSpinBox.value())
+        settings.setValue('jog_speed', self.jogSpeedSpinBox.value())
         settings.endGroup()
 
     def toolBoxChanged(self, index):
@@ -75,11 +76,11 @@ class AxisManualControl(View['AxisManualControl']):
             self.convFactorSpinBox.setValue(float(self._axis.conversion_factor))
 
     def showEvent(self, event):
-        super(AxisManualControl, self).showEvent(event)
+        super(AxisSimple, self).showEvent(event)
         self._autoRefresh.start(self._refresh_rate)
 
     def hideEvent(self, event):
-        super(AxisManualControl, self).hideEvent(event)
+        super(AxisSimple, self).hideEvent(event)
         self._autoRefresh.stop()
 
     def refresh(self):
@@ -100,10 +101,7 @@ class AxisManualControl(View['AxisManualControl']):
         if direction == '-':
             jog_speed *= -1
 
-        self._axis.jog = jog_speed
-        self._axis.enable()
-        self._axis.begin()
-        self._stopTimer.start(time)
+        self._axis.timedMove(jog_speed, (time / 1000.0))
 
     def jog(self, direction='+'):
         '''Moves indefinitely at jog speed.'''
@@ -112,18 +110,7 @@ class AxisManualControl(View['AxisManualControl']):
         if direction == '-':
             jog_speed *= -1
 
-        self._axis.jog = jog_speed
-        self._axis.enable()
-        self._axis.begin()
-
-    def stop(self):
-        '''Stops the current move.'''
-        self._axis.stop()
-        try:
-            self._axis.wait()
-        except:
-            pass
-        self._axis.disable()
+        self._axis.jogMove(jog_speed)
 
     def setJogSpeed(self, speed):
         '''Sets new jog speed on the fly.'''

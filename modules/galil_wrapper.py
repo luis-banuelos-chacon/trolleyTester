@@ -1,5 +1,7 @@
+from threading import Thread, Timer, Lock, Event
 import logging as log
 import gclib
+import time
 
 
 class GalilController(object):
@@ -7,6 +9,7 @@ class GalilController(object):
     def __init__(self, name=None, address=None, baud=None):
         '''Initializes a Galil Controller.'''
         self._g = gclib.py()            # instance of gclib class
+        self._g.lock = Lock()           # insert a lock for thread safe interactions
 
         self.name = name                # coontroller name
         self.connected = False          # connection flag
@@ -53,12 +56,13 @@ class GalilController(object):
 
     def command(self, command):
         '''Wrapper for GCommand.'''
-        try:
-            ret = self._g.GCommand(command)
-        except gclib.GclibError:
-            ret = '-1'
-        log.debug('{} -> {}'.format(command, ret))
-        return ret
+        with self._g.lock:
+            try:
+                ret = self._g.GCommand(command)
+            except gclib.GclibError:
+                ret = '-1'
+            log.debug('{} -> {}'.format(command, ret))
+            return ret
 
     ##
     # System
@@ -107,7 +111,7 @@ class GalilController(object):
             self.command('CB' + str(output))
 
 
-class GalilAxis(GalilController):
+class GalilAbstractAxis(GalilController):
 
     def __init__(self, axis, parent=None, name=None):
         '''Binds to a gclib instance from a GalilWrapper.'''
@@ -147,6 +151,10 @@ class GalilAxis(GalilController):
     # Motion
     ##
 
+    def home(self):
+        '''Sets current position to 0.'''
+        self.setData('DP', 0)
+
     def enable(self):
         '''Enables servos.'''
         self.command('SH' + self._axis)
@@ -166,7 +174,8 @@ class GalilAxis(GalilController):
     def wait(self):
         '''Blocks until the motion completes.'''
         try:
-            self._g.GMotionComplete(self._axis)
+            with self._g.lock:
+                self._g.GMotionComplete(self._axis)
         except:
             pass
 
@@ -355,3 +364,151 @@ class GalilAxis(GalilController):
     @property
     def error(self):
         return float(self.command('TE' + self._axis)) / self._conversion_factor
+
+
+class GalilAxis(GalilAbstractAxis):
+
+    def __init__(self, *args, **kwargs):
+        super(GalilAxis, self).__init__(*args, **kwargs)
+
+        self.homed = False
+        self.limit = 0.0
+
+        # list of scheduled tasks
+        # items are tuples (func, (args))
+        self.tasks = []
+
+        # execute scheduler
+        sched = Thread(target=self.loop, args=())
+        sched.daemon = True
+        sched.start()
+
+    ##
+    # Scheduler
+    ##
+
+    def cancel(self):
+        '''Clears task list and disables axis.'''
+        self.tasks = [
+            (self.stop,),
+            (self.wait,),
+            (self.disable,)
+        ]
+
+    def loop(self):
+        '''Iterates through task list indefinitely.'''
+        while True:
+            if len(self.tasks) > 0:
+                task = self.tasks.pop(0)
+
+                if len(task) == 1:
+                    # execute task with no arguments
+                    task[0]()
+
+                elif isinstance(task[0], str):
+                    # set variable
+                    if isinstance(task[1], str):
+                        value = self.__getattribute__(task[1])
+                    else:
+                        value = task[1]
+
+                    self.__setattr__(task[0], value)
+
+                else:
+                    # execute task with arguments
+                    task[0](*task[1:])
+
+                time.sleep(0.01)
+
+    ##
+    # Methods
+    ##
+
+    def jogMove(self, speed):
+        '''Moves axis at speed indefinitely.'''
+        task = [
+            ('jog', speed),
+            (self.enable,),
+            (self.begin,)
+        ]
+        self.tasks.extend(task)
+
+    def relativeMove(self, speed, pos):
+        '''Moves to a relative position.'''
+        task = [
+            ('position_relative', pos),
+            ('speed', speed),
+            (self.enable,),
+            (self.begin,)
+        ]
+        self.tasks.extend(task)
+
+    def timedMove(self, speed, t):
+        '''Moves axis at speed for time.'''
+        self.relativeMove(speed, speed * t)
+
+    def home(self, speed, torque):
+        '''Finds left and right limits.'''
+        def blockUntilTorque(torque):
+            while (abs(self.torque) < torque):
+                time.sleep(0.1)
+
+        task = [
+            # find left edge
+            ('jog', -speed),
+            (self.enable,),
+            (self.begin,),
+            (blockUntilTorque, torque),
+            (self.stop,),
+            (self.wait,),
+            (super(GalilAxis, self).home,),
+
+            # find right edge
+            ('jog', speed),
+            (self.begin,),
+            (blockUntilTorque, torque),
+            (self.stop,),
+            (self.wait,),
+            (self.disable,),
+            ('limit', 'position'),
+            ('homed', True)
+        ]
+        self.tasks.extend(task)
+
+    def absoluteMove(self, speed, pos):
+        '''Moves to an absolute position from home.'''
+        if self.homed:
+            task = [
+                ('position_absolute', pos),
+                ('speed', speed),
+                (self.enable,),
+                (self.begin,)
+            ]
+            self.tasks.extend(task)
+
+    def rangeMove(self, speed, pos):
+        '''Moves within ranges found by homing.'''
+        if self.homed:
+            task = [
+                ('position_absolute', self.limit * pos),
+                ('speed', speed),
+                (self.enable,),
+                (self.begin,)
+            ]
+            self.tasks.extend(task)
+
+    def pingPong(self, speed, repeats, a, b):
+        '''Bounces between positions.'''
+        task = [(self.enable,), ('speed', speed)]
+        for i in range(repeats):
+            task.append(('position_absolute', self.limit * a))
+            task.append((self.begin,))
+            task.append((self.wait,))
+            task.append(('position_absolute', self.limit * b))
+            task.append((self.begin,))
+            task.append((self.wait,))
+
+        task.append((self.stop,))
+        task.append((self.wait,))
+        task.append((self.disable,))
+        self.tasks.extend(task)

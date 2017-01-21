@@ -20,4 +20,5 @@ for ui in glob(join(path, '*.ui')):
 # Import classes
 from .program_tab import ProgramTab
 from .connection_tab import ConnectionTab
-from .axis_manual_control import AxisManualControl
+from .axis_simple import AxisSimple
+from .axis_two_state import AxisTwoState
