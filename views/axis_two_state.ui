@@ -72,7 +72,7 @@ QAbstractSpinBox::down-button {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <property name="tabSpacing">
          <number>0</number>
@@ -204,8 +204,17 @@ QAbstractSpinBox::down-button {
             </item>
             <item row="0" column="1">
              <widget class="QDoubleSpinBox" name="strokeSpinBox">
+              <property name="suffix">
+               <string> %</string>
+              </property>
+              <property name="decimals">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <double>100.000000000000000</double>
+              </property>
               <property name="singleStep">
-               <double>0.100000000000000</double>
+               <double>1.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -271,16 +280,30 @@ QAbstractSpinBox::down-button {
              </widget>
             </item>
             <item row="1" column="0" colspan="3">
-             <widget class="QPushButton" name="goButton">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Go</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QSpinBox" name="repsSpinBox">
+                <property name="suffix">
+                 <string> reps</string>
+                </property>
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="goButton">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Go</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>

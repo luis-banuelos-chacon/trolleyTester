@@ -8,18 +8,19 @@ class AxisTwoState(View['AxisTwoState']):
 
     _refresh_rate = 100
 
-    def __init__(self, axis, parent=None):
+    def __init__(self, axis, name, parent=None):
         super(AxisTwoState, self).__init__(parent)
         self.setupUi(self)
 
         # controller
         self._axis = axis
 
+        # set name
+        self.name = name
+        self.mainBox.setTitle(self.name)
+
         # settings
         self.readSettings()
-
-        # set name
-        self.mainBox.setTitle(self._axis.name)
 
         # motion
         self.goButton.clicked.connect(self.go)
@@ -45,13 +46,10 @@ class AxisTwoState(View['AxisTwoState']):
         if parent:
             parent.closing.connect(self.writeSettings)
 
-        # thread killer
-        self._stop = False
-
     def readSettings(self):
         settings = QtCore.QSettings()
 
-        settings.beginGroup(self._axis.name)
+        settings.beginGroup(self.name)
         self._axis.conversion_factor = settings.value('conversion_factor', 1.0).toPyObject()
         self.strokeSpinBox.setValue(settings.value('stroke', 1).toPyObject())
         self.speedSpinBox.setValue(settings.value('speed', 1).toPyObject())
@@ -62,7 +60,7 @@ class AxisTwoState(View['AxisTwoState']):
     def writeSettings(self):
         settings = QtCore.QSettings()
 
-        settings.beginGroup(self._axis.name)
+        settings.beginGroup(self.name)
         settings.setValue('conversion_factor', self._axis.conversion_factor)
         settings.setValue('stroke', self.strokeSpinBox.value())
         settings.setValue('speed', self.speedSpinBox.value())
@@ -94,102 +92,35 @@ class AxisTwoState(View['AxisTwoState']):
 
     def stop(self):
         '''Stops the current move.'''
-        self._stop = True
-        self._axis.stop()
-        try:
-            self._axis.wait()
-        except:
-            pass
-        self._axis.disable()
+        self._axis.cancel()
 
     def home(self):
         '''Finds the edges of the axis, then sets the center.'''
         homing_torque = float(self.homingTorqueSpinBox.value())
         speed = 3
 
-        def task():
-            self._axis.enable()
-
-            # find home
-            self._axis.jog = -speed
-            self._axis.begin()
-            while (abs(self._axis.torque) < homing_torque):
-                time.sleep(0.05)
-                if self._stop:
-                    self._stop = False
-                    return
-
-            self._axis.stop()
-            self._axis.wait()
-            self._axis.home()
-
-            # find limit
-            self._axis.jog = speed
-            self._axis.begin()
-            while (abs(self._axis.torque) < homing_torque):
-                time.sleep(0.05)
-                if self._stop:
-                    self._stop = False
-                    return
-
-            self._axis.stop()
-            self._axis.wait()
-            self.limitSpinBox.setValue(self._axis.position)
-            self._axis.disable()
-
-        Thread(target=task, args=()).start()
+        self._axis.home(speed, homing_torque)
 
     def right(self):
-        limit = self.limitSpinBox.value()
-        stroke = self.strokeSpinBox.value()
+        stroke = (self.strokeSpinBox.value() / 100)
         speed = self.speedSpinBox.value()
-        self._axis.position_absolute = (limit / 2) + stroke
-        self._axis.speed = speed
-        self._axis.enable()
-        self._axis.begin()
+
+        self._axis.rangeMove(speed, 0.5 + (stroke / 2))
 
     def left(self):
-        limit = self.limitSpinBox.value()
-        stroke = self.strokeSpinBox.value()
+        stroke = (self.strokeSpinBox.value() / 100)
         speed = self.speedSpinBox.value()
-        self._axis.position_absolute = (limit / 2) - stroke
-        self._axis.speed = speed
-        self._axis.enable()
-        self._axis.begin()
+
+        self._axis.rangeMove(speed, 0.5 - (stroke / 2))
 
     def center(self):
-        limit = self.limitSpinBox.value()
         speed = self.speedSpinBox.value()
-        self._axis.position_absolute = (limit / 2)
-        self._axis.speed = speed
-        self._axis.enable()
-        self._axis.begin()
+
+        self._axis.rangeMove(speed, 0.5)
 
     def go(self):
-        limit = self.limitSpinBox.value()
-        stroke = self.strokeSpinBox.value()
+        reps = self.repsSpinBox.value()
+        stroke = (self.strokeSpinBox.value() / 100)
         speed = self.speedSpinBox.value()
 
-        def task():
-            self._axis.enable()
-            self._axis.speed = speed
-
-            while (True):
-                self._axis.position_absolute = (limit / 2) + stroke
-                self._axis.begin()
-                self._axis.wait()
-
-                if self._stop:
-                    self._stop = False
-                    return
-
-                self._axis.position_absolute = (limit / 2) - stroke
-                self._axis.begin()
-                self._axis.wait()
-
-                if self._stop:
-                    self._stop = False
-                    return
-
-        Thread(target=task, args=()).start()
-
+        self._axis.pingPong(speed, reps, 0.5 - (stroke / 2), 0.5 + (stroke / 2))

@@ -6,12 +6,11 @@ import time
 
 class GalilController(object):
 
-    def __init__(self, name=None, address=None, baud=None):
+    def __init__(self, address=None, baud=None):
         '''Initializes a Galil Controller.'''
         self._g = gclib.py()            # instance of gclib class
         self._g.lock = Lock()           # insert a lock for thread safe interactions
 
-        self.name = name                # coontroller name
         self.connected = False          # connection flag
 
         if address is not None:
@@ -33,16 +32,16 @@ class GalilController(object):
         try:
             self._g.GOpen(cmd_string)
             self.connected = True
-            log.info('[{}] Connected at ({})'.format(self.name, address))
+            log.info('Connected at ({})'.format(address))
             return True
 
         except gclib.GclibError:
-            log.error('[{}] No response at ({})'.format(self.name, address))
+            log.error('No response at ({})'.format(address))
             return False
 
     def close(self):
         '''Closes active connection to controller.'''
-        log.info('[{}] Disconnected.'.format(self.name))
+        log.info('Disconnected.')
         self._g.GClose()
         self.connected = False
 
@@ -52,7 +51,7 @@ class GalilController(object):
             return self._g.GInfo()
 
         except gclib.GclibError:
-            log.error('[{}] No active connection.'.format(self.name))
+            log.error('No active connection.')
 
     def command(self, command):
         '''Wrapper for GCommand.'''
@@ -113,13 +112,8 @@ class GalilController(object):
 
 class GalilAbstractAxis(GalilController):
 
-    def __init__(self, axis, parent=None, name=None):
+    def __init__(self, axis, parent=None):
         '''Binds to a gclib instance from a GalilWrapper.'''
-        if name is not None:
-            self.name = name
-        else:
-            self.name = str(axis)
-
         self.controller = parent
         self._parent = parent
         self._g = parent._g
@@ -408,8 +402,10 @@ class GalilAxis(GalilAbstractAxis):
                 elif isinstance(task[0], str):
                     # set variable
                     if isinstance(task[1], str):
+                        # from another variable
                         value = self.__getattribute__(task[1])
                     else:
+                        # from immediate
                         value = task[1]
 
                     self.__setattr__(task[0], value)
@@ -499,16 +495,17 @@ class GalilAxis(GalilAbstractAxis):
 
     def pingPong(self, speed, repeats, a, b):
         '''Bounces between positions.'''
-        task = [(self.enable,), ('speed', speed)]
-        for i in range(repeats):
-            task.append(('position_absolute', self.limit * a))
-            task.append((self.begin,))
-            task.append((self.wait,))
-            task.append(('position_absolute', self.limit * b))
-            task.append((self.begin,))
-            task.append((self.wait,))
+        if self.homed:
+            task = [(self.enable,), ('speed', speed)]
+            for i in range(repeats):
+                task.append(('position_absolute', self.limit * a))
+                task.append((self.begin,))
+                task.append((self.wait,))
+                task.append(('position_absolute', self.limit * b))
+                task.append((self.begin,))
+                task.append((self.wait,))
 
-        task.append((self.stop,))
-        task.append((self.wait,))
-        task.append((self.disable,))
-        self.tasks.extend(task)
+            task.append((self.stop,))
+            task.append((self.wait,))
+            task.append((self.disable,))
+            self.tasks.extend(task)

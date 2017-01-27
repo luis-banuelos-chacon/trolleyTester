@@ -6,18 +6,19 @@ class AxisSimple(View['AxisSimple']):
 
     _refresh_rate = 100
 
-    def __init__(self, axis, parent=None):
+    def __init__(self, axis, name, parent=None):
         super(AxisSimple, self).__init__(parent)
         self.setupUi(self)
 
         # controller
         self._axis = axis
 
+        # set name
+        self.name = name
+        self.mainBox.setTitle(self.name)
+
         # settings
         self.readSettings()
-
-        # set name
-        self.mainBox.setTitle(self._axis.name)
 
         # timed
         self.timedPlusButton.clicked.connect(lambda x: self.timed('+'))
@@ -51,7 +52,7 @@ class AxisSimple(View['AxisSimple']):
     def readSettings(self):
         settings = QtCore.QSettings()
 
-        settings.beginGroup(self._axis.name)
+        settings.beginGroup(self.name)
         self._axis.conversion_factor = settings.value('conversion_factor', 1.0).toPyObject()
         self.speedSpinBox.setValue(settings.value('speed', 1).toPyObject())
         self.timeSpinBox.setValue(settings.value('time', 1).toPyObject())
@@ -61,7 +62,7 @@ class AxisSimple(View['AxisSimple']):
     def writeSettings(self):
         settings = QtCore.QSettings()
 
-        settings.beginGroup(self._axis.name)
+        settings.beginGroup(self.name)
         settings.setValue('conversion_factor', self._axis.conversion_factor)
         settings.setValue('speed', self.speedSpinBox.value())
         settings.setValue('time', self.timeSpinBox.value())

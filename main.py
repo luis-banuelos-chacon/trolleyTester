@@ -45,65 +45,54 @@ class MainWindow(View['MainWindow']):
         self.setupFrontend()
 
     def setupBackend(self):
-        # Galil Controllers
-        self.galil = []
-        self.galil.append(GalilController('Galil 0 - 24V'))
-        self.galil.append(GalilController('Galil 1 - 48V'))
-
-        # Axis
-        self.axes = {
-            'Back': {
-                'Hopper': GalilAxis('A', self.galil[0], 'Hopper (Back)'),
-                'Trough': GalilAxis('B', self.galil[0], 'Trough (Back)'),
-                'Lifter': GalilAxis('A', self.galil[1], 'Lifter (Back)'),
-                'Vane': GalilAxis('C', self.galil[0], 'Vane (Back)')
-            },
-            'Front': {
-                'Hopper': GalilAxis('E', self.galil[0], 'Hopper (Front)'),
-                'Trough': GalilAxis('F', self.galil[0], 'Trough (Front)'),
-                'Lifter': GalilAxis('B', self.galil[1], 'Lifter (Front)'),
-                'Vane': GalilAxis('D', self.galil[0], 'Vane (Front)')
-            }
+        # Controllers
+        self.controllers = {
+            'Galil 0': GalilController(),
+            'Galil 1': GalilController()
         }
 
-        # self.axis = GalilAxis('A', self.galil[0], 'Test')
+        # Axes
+        self.axes = {
+            'Hopper (Back)': GalilAxis('A', self.controllers['Galil 0']),
+            'Trough (Back)': GalilAxis('B', self.controllers['Galil 0']),
+            'Lifter (Back)': GalilAxis('A', self.controllers['Galil 1']),
+            'Vane (Back)': GalilAxis('C', self.controllers['Galil 0']),
+            'Hopper (Front)': GalilAxis('E', self.controllers['Galil 0']),
+            'Trough (Front)': GalilAxis('F', self.controllers['Galil 0']),
+            'Lifter (Front)': GalilAxis('B', self.controllers['Galil 1']),
+            'Vane (Front)': GalilAxis('D', self.controllers['Galil 0'])
+        }
 
         # setup logging window
         QtLogger().signals.append_log.connect(self.logView.appendPlainText)
 
     def setupFrontend(self):
         # Connection Tab
-        self.connectionTab = ConnectionTab(self.galil, self)
+        self.connectionTab = ConnectionTab(self.controllers, self)
         self.tabWidget.addTab(self.connectionTab, 'Connection')
-
-        # widget = AxisTwoState(self.axis)
-        # self.tabWidget.addTab(widget, 'TwoState')
-
-        # widget = AxisSimple(self.axis)
-        # self.tabWidget.addTab(widget, 'Simple')
 
         # Front Simple Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisSimple(self.axes['Front']['Hopper']))
-        layout.addWidget(AxisSimple(self.axes['Front']['Trough']))
-        layout.addWidget(AxisSimple(self.axes['Front']['Lifter']))
+        layout.addWidget(AxisSimple(self.axes['Hopper (Front)'], 'Hopper'))
+        layout.addWidget(AxisSimple(self.axes['Trough (Front)'], 'Trough'))
+        layout.addWidget(AxisSimple(self.axes['Lifter (Front)'], 'Lifter'))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Front Motors')
 
         # Back Simple Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisSimple(self.axes['Back']['Hopper']))
-        layout.addWidget(AxisSimple(self.axes['Back']['Trough']))
-        layout.addWidget(AxisSimple(self.axes['Back']['Lifter']))
+        layout.addWidget(AxisSimple(self.axes['Hopper (Back)'], 'Hopper'))
+        layout.addWidget(AxisSimple(self.axes['Trough (Back)'], 'Trough'))
+        layout.addWidget(AxisSimple(self.axes['Lifter (Back)'], 'Lifter'))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Back Motors')
 
         # Vane Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisTwoState(self.axes['Front']['Vane']))
-        layout.addWidget(AxisTwoState(self.axes['Back']['Vane']))
+        layout.addWidget(AxisTwoState(self.axes['Vane (Front)'], 'Vane (Front)'))
+        layout.addWidget(AxisTwoState(self.axes['Vane (Back)'], 'Vane (Back)'))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Vanes')

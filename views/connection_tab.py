@@ -4,12 +4,12 @@ from . import View
 
 class ConnectionTab(View['ConnectionTab']):
 
-    def __init__(self, galil, parent=None):
+    def __init__(self, controllers, parent=None):
         super(ConnectionTab, self).__init__(parent)
         self.setupUi(self)
 
-        # get reference to galil controllers
-        self.galil = galil
+        # get reference to controllers
+        self.controllers = controllers
 
         # widgets into lists
         self.ip = []
@@ -51,17 +51,19 @@ class ConnectionTab(View['ConnectionTab']):
         return '{}.{}.{}.{}'.format(ip[0].value(), ip[1].value(), ip[2].value(), ip[3].value())
 
     def connect(self, id):
-        if self.galil[id].connected:
+        name = ['Galil 0', 'Galil 1'][id]
+
+        if self.controllers[name].connected:
             # disconnect
-            self.galil[id].close()
+            self.controllers[name].close()
             self.connect_btn[id].setText('Connect')
 
         else:
             # connect
             self.connect_btn[id].setDown(True)
 
-            if self.galil[id].open(self.getIP(self.ip[id])):
-                self.galil[id].disable()
+            if self.controllers[name].open(self.getIP(self.ip[id])):
+                self.controllers[name].disable()
                 self.connect_btn[id].setText('Disconnect')
             else:
                 self.connect_btn[id].setText('Connect')
