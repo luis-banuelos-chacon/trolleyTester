@@ -6,110 +6,83 @@ class ProgramThread(QtCore.QThread):
 
     instruction_changed = QtCore.pyqtSignal(int)
 
-    def __init__(self, program, parent=None):
+    def __init__(self, axes, program, loops, parent=None):
         super(ProgramThread, self).__init__(parent)
 
-        # make an actual copy that we can modify
-        self._program = list(program)
+        # sorted has the side effect of creating a new list
+        self.program = sorted(program, key=lambda k: k['time'])
+        self.loops = loops
+        self.axes = axes
 
-        # get all axes
-        self._axes = list(set([item['axis'] for item in self._program]))
+        # flags
+        self.elapsed = 0        # elapsed time
+        self.running = False    # program running
+        self.loop = 0           # current loop iteration
+        self.pc = 0             # program counter
 
-        # stop flag
-        self._stop = False
+    def execute(self, axis, action, args):
+        axis = self.axes[axis]
 
-        # loop flag (public)
-        self.loop = False
+        if action == 'Timed':
+            axis.timedMove(*args)
+
+        if action == 'Range':
+            axis.rangeMove(*args)
+
+        if action == 'PingPong':
+            speed = args[0]
+            stroke = args[1]
+            repeats = args[2]
+
+            a = 0.5 - (stroke / 200.0)
+            b = 0.5 + (stroke / 200.0)
+
+            axis.pingPong(speed, repeats, a, b)
 
     def stop(self):
-        self.stopAxis()
-        self._stop = True
-
-    def stopAxis(self, axis=None):
-        if axis:
-            axis.stop()
-            axis.wait()
-            axis.disable()
-        else:
-            for axis in self._axes:
-                axis.stop()
-                axis.wait()
-                axis.disable()
-
-    def jogAxis(self, axis, speed):
-        axis.jog = speed
-        axis.enable()
-        axis.begin()
-
-    def timedAxis(self, axis, speed):
-        axis.jog = speed
-        axis.enable()
-        axis.begin()
-
-    def parse(self, program):
-        # parsed event list
-        # list of (index, time, method, args)
-        events = []
-
-        for idx, item in enumerate(program):
-            start = item['time']
-            axis = item['axis']
-            speed = item['speed']
-            duration = item['duration']
-            action = item['action']
-
-            if action == 'timed move':
-                events.append((idx, start, self.jogAxis, [axis, speed]))
-                events.append((idx, start+duration, self.stopAxis, [axis]))
-                continue
-
-            if action == 'jog move':
-                events.append((idx, start, self.jogAxis, [axis, speed]))
-                continue
-
-            if action == 'stop':
-                events.append((idx, start, self.stopAxis, [axis]))
-                continue
-
-        events = sorted(events, key=lambda l: l[1])
-        return events
+        self.running = False
 
     def run(self):
-        # initial time
-        initial_time = time.time()*1000.0
+        self.running = True
+        self.loop = 0
+        self.pc = 0
 
-        # parse program
-        events = self.parse(self._program)
+        start = time.time() * 1000.0
+        while self.running:
+            self.elapsed = (time.time() * 1000.0) - start
+            task = self.program[self.pc]
 
-        # current event
-        current = 0
+            if self.elapsed > task['time']:
+                self.execute(task['axis'], task['action'], task['args'])
+                self.pc += 1
+                self.instruction_changed.emit(self.pc)
 
-        while True:
-            index = events[current][0]
-            start_time = events[current][1]
-            method = events[current][2]
-            args = events[current][3]
+            if self.pc == len(self.program):
+                # wait until all axes finish execution:
+                for axis in self.axes.values():
+                    while axis.running:
+                        pass
 
-            while True:
-                elapsed_time = (time.time()*1000.0) - initial_time
+                start = time.time() * 1000.0
+                self.loop += 1
+                self.pc = 0
 
-                if elapsed_time > start_time:
-                    method(*args)
-                    self.instruction_changed.emit(index)
-                    break
-
-                if self._stop:
-                    break
-
-                time.sleep(0.001)
-
-            if self._stop:
+            if not self.loops == 0 and self.loop == self.loops:
                 break
 
-            if current < len(events) - 1:
-                current += 1
-            elif self.loop is True:
-                initial_time = time.time()*1000.0
-                current = 0
-            else:
-                break
+            time.sleep(0.001)
+
+        # stop all axis
+        for axis in self.axes.values():
+            axis.cancel()
+
+
+
+
+
+
+
+
+
+
+

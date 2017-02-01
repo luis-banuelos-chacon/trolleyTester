@@ -365,6 +365,7 @@ class GalilAxis(GalilAbstractAxis):
     def __init__(self, *args, **kwargs):
         super(GalilAxis, self).__init__(*args, **kwargs)
 
+        self.running = False
         self.homed = False
         self.limit = 0.0
 
@@ -393,6 +394,7 @@ class GalilAxis(GalilAbstractAxis):
         '''Iterates through task list indefinitely.'''
         while True:
             if len(self.tasks) > 0:
+                self.running = True
                 task = self.tasks.pop(0)
 
                 if len(task) == 1:
@@ -416,6 +418,9 @@ class GalilAxis(GalilAbstractAxis):
 
                 time.sleep(0.01)
 
+            else:
+                self.running = False
+
     ##
     # Methods
     ##
@@ -435,7 +440,9 @@ class GalilAxis(GalilAbstractAxis):
             ('position_relative', pos),
             ('speed', speed),
             (self.enable,),
-            (self.begin,)
+            (self.begin,),
+            (self.wait,),
+            (self.disable,)
         ]
         self.tasks.extend(task)
 
@@ -478,7 +485,9 @@ class GalilAxis(GalilAbstractAxis):
                 ('position_absolute', pos),
                 ('speed', speed),
                 (self.enable,),
-                (self.begin,)
+                (self.begin,),
+                (self.wait,),
+                (self.disable,)
             ]
             self.tasks.extend(task)
 
@@ -490,6 +499,8 @@ class GalilAxis(GalilAbstractAxis):
                 ('speed', speed),
                 (self.enable,),
                 (self.begin,)
+                (self.wait,),
+                (self.disable,)
             ]
             self.tasks.extend(task)
 
@@ -505,7 +516,5 @@ class GalilAxis(GalilAbstractAxis):
                 task.append((self.begin,))
                 task.append((self.wait,))
 
-            task.append((self.stop,))
-            task.append((self.wait,))
             task.append((self.disable,))
             self.tasks.extend(task)

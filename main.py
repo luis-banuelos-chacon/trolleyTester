@@ -98,8 +98,8 @@ class MainWindow(View['MainWindow']):
         self.tabWidget.addTab(tab, 'Vanes')
 
         # Program Tab
-        # self.programTab = ProgramTab(self.axes, self)
-        # self.tabWidget.addTab(self.programTab, 'Program')
+        self.programTab = ProgramTab(self.axes, self)
+        self.tabWidget.addTab(self.programTab, 'Program')
 
     def closeEvent(self, event):
         self.closing.emit()
