@@ -365,8 +365,8 @@ class GalilAxis(GalilAbstractAxis):
     def __init__(self, *args, **kwargs):
         super(GalilAxis, self).__init__(*args, **kwargs)
 
-        self.homed = False
-        self.limit = 0.0
+        self.is_homed = False
+        self.home_limit = 0.0
 
         # list of scheduled tasks
         # items are tuples (func, (args))
@@ -481,7 +481,7 @@ class GalilAxis(GalilAbstractAxis):
 
     def absoluteMove(self, speed, pos):
         '''Moves to an absolute position from home.'''
-        if self.homed:
+        if self.is_homed:
             task = [
                 ('position_absolute', pos),
                 ('speed', speed),
@@ -494,9 +494,9 @@ class GalilAxis(GalilAbstractAxis):
 
     def rangeMove(self, speed, pos):
         '''Moves within ranges found by homing.'''
-        if self.homed:
+        if self.is_homed:
             task = [
-                ('position_absolute', self.limit * pos),
+                ('position_absolute', self.home_limit * pos),
                 ('speed', speed),
                 (self.enable,),
                 (self.begin,),
@@ -507,13 +507,13 @@ class GalilAxis(GalilAbstractAxis):
 
     def pingPong(self, speed, repeats, a, b):
         '''Bounces between positions.'''
-        if self.homed:
+        if self.is_homed:
             task = [(self.enable,), ('speed', speed)]
             for i in range(repeats):
-                task.append(('position_absolute', self.limit * a))
+                task.append(('position_absolute', self.home_limit * a))
                 task.append((self.begin,))
                 task.append((self.wait,))
-                task.append(('position_absolute', self.limit * b))
+                task.append(('position_absolute', self.home_limit * b))
                 task.append((self.begin,))
                 task.append((self.wait,))
 

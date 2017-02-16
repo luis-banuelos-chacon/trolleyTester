@@ -148,7 +148,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
             try:
                 value = task['args'][col-3]
             except:
-                value = 0
+                value = ''
 
             try:
                 meta = self.actions[task['action']][col-3]

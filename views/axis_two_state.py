@@ -31,6 +31,7 @@ class AxisTwoState(View['AxisTwoState']):
         # configuration
         self.homeButton.clicked.connect(self.home)
         self.convFactorSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('conversion_factor', v))
+        self.limitSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('home_limit', v))
 
         # stop
         self.stopButton.clicked.connect(self._axis.cancel)
@@ -55,6 +56,7 @@ class AxisTwoState(View['AxisTwoState']):
         self.speedSpinBox.setValue(float(settings.value('speed', 1).toPyObject()))
         self.homingTorqueSpinBox.setValue(float(settings.value('homing_torque', 1).toPyObject()))
         self.limitSpinBox.setValue(float(settings.value('limit', 1).toPyObject()))
+        self._axis.is_homed = bool(settings.value('is_homed', False).toPyObject())
         settings.endGroup()
 
     def writeSettings(self):
@@ -66,6 +68,7 @@ class AxisTwoState(View['AxisTwoState']):
         settings.setValue('speed', self.speedSpinBox.value())
         settings.setValue('homing_torque', self.homingTorqueSpinBox.value())
         settings.setValue('limit', self.limitSpinBox.value())
+        settings.setValue('is_homed', self._axis.is_homed)
         settings.endGroup()
 
     def toolBoxChanged(self, index):

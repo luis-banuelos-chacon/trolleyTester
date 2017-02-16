@@ -168,8 +168,8 @@ QAbstractSpinBox::down-button {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>184</width>
-           <height>140</height>
+           <width>289</width>
+           <height>185</height>
           </rect>
          </property>
          <attribute name="label">
@@ -240,6 +240,9 @@ QAbstractSpinBox::down-button {
               <property name="suffix">
                <string> ms</string>
               </property>
+              <property name="singleStep">
+               <number>100</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -289,8 +292,8 @@ QAbstractSpinBox::down-button {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>204</width>
-           <height>98</height>
+           <width>289</width>
+           <height>185</height>
           </rect>
          </property>
          <attribute name="label">
@@ -375,8 +378,8 @@ QAbstractSpinBox::down-button {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>289</width>
-           <height>185</height>
+           <width>227</width>
+           <height>170</height>
           </rect>
          </property>
          <attribute name="label">

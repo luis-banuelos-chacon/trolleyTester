@@ -73,18 +73,18 @@ class MainWindow(View['MainWindow']):
 
         # Front Simple Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisSimple(self.axes['Hopper (Front)'], 'Hopper', self))
-        layout.addWidget(AxisSimple(self.axes['Trough (Front)'], 'Trough', self))
-        layout.addWidget(AxisSimple(self.axes['Lifter (Front)'], 'Lifter', self))
+        layout.addWidget(AxisSimple(self.axes['Hopper (Front)'], 'Hopper 0', self))
+        layout.addWidget(AxisSimple(self.axes['Trough (Front)'], 'Trough 0', self))
+        layout.addWidget(AxisSimple(self.axes['Lifter (Front)'], 'Lifter 0', self))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Front Motors')
 
         # Back Simple Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisSimple(self.axes['Hopper (Back)'], 'Hopper', self))
-        layout.addWidget(AxisSimple(self.axes['Trough (Back)'], 'Trough', self))
-        layout.addWidget(AxisSimple(self.axes['Lifter (Back)'], 'Lifter', self))
+        layout.addWidget(AxisSimple(self.axes['Hopper (Back)'], 'Hopper 1', self))
+        layout.addWidget(AxisSimple(self.axes['Trough (Back)'], 'Trough 1', self))
+        layout.addWidget(AxisSimple(self.axes['Lifter (Back)'], 'Lifter 1', self))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Back Motors')
