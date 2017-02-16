@@ -33,7 +33,7 @@ class AxisTwoState(View['AxisTwoState']):
         self.convFactorSpinBox.valueChanged.connect(lambda v: self._axis.__setattr__('conversion_factor', v))
 
         # stop
-        self.stopButton.clicked.connect(self.stop)
+        self.stopButton.clicked.connect(self._axis.cancel)
 
         # data polling
         self._autoRefresh = QtCore.QTimer(self)
@@ -50,11 +50,11 @@ class AxisTwoState(View['AxisTwoState']):
         settings = QtCore.QSettings()
 
         settings.beginGroup(self.name)
-        self._axis.conversion_factor = settings.value('conversion_factor', 1.0).toPyObject()
-        self.strokeSpinBox.setValue(settings.value('stroke', 1).toPyObject())
-        self.speedSpinBox.setValue(settings.value('speed', 1).toPyObject())
-        self.homingTorqueSpinBox.setValue(settings.value('homing_torque', 1).toPyObject())
-        self.limitSpinBox.setValue(settings.value('limit', 1).toPyObject())
+        self._axis.conversion_factor = float(settings.value('conversion_factor', 1.0).toPyObject())
+        self.strokeSpinBox.setValue(float(settings.value('stroke', 1).toPyObject()))
+        self.speedSpinBox.setValue(float(settings.value('speed', 1).toPyObject()))
+        self.homingTorqueSpinBox.setValue(float(settings.value('homing_torque', 1).toPyObject()))
+        self.limitSpinBox.setValue(float(settings.value('limit', 1).toPyObject()))
         settings.endGroup()
 
     def writeSettings(self):
@@ -89,10 +89,6 @@ class AxisTwoState(View['AxisTwoState']):
                 self.velocityEdit.setText(str(self._axis.velocity))
                 self.torqueEdit.setText(str(self._axis.torque))
                 self.errorEdit.setText(str(self._axis.error))
-
-    def stop(self):
-        '''Stops the current move.'''
-        self._axis.cancel()
 
     def home(self):
         '''Finds the edges of the axis, then sets the center.'''

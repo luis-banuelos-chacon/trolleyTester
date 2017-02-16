@@ -53,10 +53,10 @@ class AxisSimple(View['AxisSimple']):
         settings = QtCore.QSettings()
 
         settings.beginGroup(self.name)
-        self._axis.conversion_factor = settings.value('conversion_factor', 1.0).toPyObject()
-        self.speedSpinBox.setValue(settings.value('speed', 1).toPyObject())
-        self.timeSpinBox.setValue(settings.value('time', 1).toPyObject())
-        self.jogSpeedSpinBox.setValue(settings.value('jog_speed', 1).toPyObject())
+        self._axis.conversion_factor = float(settings.value('conversion_factor', 1.0).toPyObject())
+        self.speedSpinBox.setValue(float(settings.value('speed', 1).toPyObject()))
+        self.timeSpinBox.setValue(float(settings.value('time', 1).toPyObject()))
+        self.jogSpeedSpinBox.setValue(float(settings.value('jog_speed', 1).toPyObject()))
         settings.endGroup()
 
     def writeSettings(self):

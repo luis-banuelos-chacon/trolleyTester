@@ -60,7 +60,7 @@ class MainWindow(View['MainWindow']):
             'Hopper (Front)': GalilAxis('E', self.controllers['Galil 0']),
             'Trough (Front)': GalilAxis('F', self.controllers['Galil 0']),
             'Lifter (Front)': GalilAxis('B', self.controllers['Galil 1']),
-            'Vane (Front)': GalilAxis('D', self.controllers['Galil 0'])
+            'Vane (Front)': GalilAxis('G', self.controllers['Galil 0'])
         }
 
         # setup logging window
@@ -73,26 +73,26 @@ class MainWindow(View['MainWindow']):
 
         # Front Simple Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisSimple(self.axes['Hopper (Front)'], 'Hopper'))
-        layout.addWidget(AxisSimple(self.axes['Trough (Front)'], 'Trough'))
-        layout.addWidget(AxisSimple(self.axes['Lifter (Front)'], 'Lifter'))
+        layout.addWidget(AxisSimple(self.axes['Hopper (Front)'], 'Hopper', self))
+        layout.addWidget(AxisSimple(self.axes['Trough (Front)'], 'Trough', self))
+        layout.addWidget(AxisSimple(self.axes['Lifter (Front)'], 'Lifter', self))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Front Motors')
 
         # Back Simple Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisSimple(self.axes['Hopper (Back)'], 'Hopper'))
-        layout.addWidget(AxisSimple(self.axes['Trough (Back)'], 'Trough'))
-        layout.addWidget(AxisSimple(self.axes['Lifter (Back)'], 'Lifter'))
+        layout.addWidget(AxisSimple(self.axes['Hopper (Back)'], 'Hopper', self))
+        layout.addWidget(AxisSimple(self.axes['Trough (Back)'], 'Trough', self))
+        layout.addWidget(AxisSimple(self.axes['Lifter (Back)'], 'Lifter', self))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Back Motors')
 
         # Vane Axis
         layout = QtGui.QHBoxLayout()
-        layout.addWidget(AxisTwoState(self.axes['Vane (Front)'], 'Vane (Front)'))
-        layout.addWidget(AxisTwoState(self.axes['Vane (Back)'], 'Vane (Back)'))
+        layout.addWidget(AxisTwoState(self.axes['Vane (Front)'], 'Vane (Front)', self))
+        layout.addWidget(AxisTwoState(self.axes['Vane (Back)'], 'Vane (Back)', self))
         tab = QtGui.QWidget()
         tab.setLayout(layout)
         self.tabWidget.addTab(tab, 'Vanes')

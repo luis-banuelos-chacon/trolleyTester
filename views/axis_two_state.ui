@@ -72,7 +72,7 @@ QAbstractSpinBox::down-button {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="tabSpacing">
          <number>0</number>
@@ -83,7 +83,7 @@ QAbstractSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>206</height>
+           <height>209</height>
           </rect>
          </property>
          <attribute name="label">
@@ -166,7 +166,7 @@ QAbstractSpinBox::down-button {
            <x>0</x>
            <y>0</y>
            <width>289</width>
-           <height>206</height>
+           <height>209</height>
           </rect>
          </property>
          <attribute name="label">
@@ -314,8 +314,8 @@ QAbstractSpinBox::down-button {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>289</width>
-           <height>206</height>
+           <width>257</width>
+           <height>177</height>
           </rect>
          </property>
          <attribute name="label">

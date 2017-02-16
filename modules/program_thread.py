@@ -24,10 +24,16 @@ class ProgramThread(QtCore.QThread):
         axis = self.axes[axis]
 
         if action == 'Timed':
-            axis.timedMove(*args)
+            speed = args[0]
+            duration = args[1] / 1000.0
+
+            axis.timedMove(speed, duration)
 
         if action == 'Range':
-            axis.rangeMove(*args)
+            speed = args[0]
+            position = args[1] / 100.0
+
+            axis.rangeMove(speed, position)
 
         if action == 'PingPong':
             speed = args[0]
@@ -54,13 +60,13 @@ class ProgramThread(QtCore.QThread):
 
             if self.elapsed > task['time']:
                 self.execute(task['axis'], task['action'], task['args'])
-                self.pc += 1
                 self.instruction_changed.emit(self.pc)
+                self.pc += 1
 
             if self.pc == len(self.program):
                 # wait until all axes finish execution:
                 for axis in self.axes.values():
-                    while axis.running:
+                    while axis.running and self.running:
                         pass
 
                 start = time.time() * 1000.0
@@ -70,7 +76,7 @@ class ProgramThread(QtCore.QThread):
             if not self.loops == 0 and self.loop == self.loops:
                 break
 
-            time.sleep(0.001)
+            time.sleep(0.01)
 
         # stop all axis
         for axis in self.axes.values():

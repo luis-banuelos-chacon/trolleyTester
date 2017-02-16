@@ -165,13 +165,13 @@ class GalilAbstractAxis(GalilController):
         '''Stops motion before end of move.'''
         self.command('ST' + self._axis)
 
-    def wait(self):
+    def wait(self, blocking=True):
         '''Blocks until the motion completes.'''
-        try:
-            with self._g.lock:
-                self._g.GMotionComplete(self._axis)
-        except:
-            pass
+        if blocking:
+            while int(float(self.command('MG_BG' + self._axis))):
+                time.sleep(0.001)
+        else:
+            return int(float(self.command('MG_BG' + self._axis)))
 
     ##
     # Properties
@@ -365,7 +365,6 @@ class GalilAxis(GalilAbstractAxis):
     def __init__(self, *args, **kwargs):
         super(GalilAxis, self).__init__(*args, **kwargs)
 
-        self.running = False
         self.homed = False
         self.limit = 0.0
 
@@ -382,19 +381,23 @@ class GalilAxis(GalilAbstractAxis):
     # Scheduler
     ##
 
+    @property
+    def running(self):
+        if len(self.tasks) > 0:
+            return True
+        else:
+            return False
+
     def cancel(self):
         '''Clears task list and disables axis.'''
-        self.tasks = [
-            (self.stop,),
-            (self.wait,),
-            (self.disable,)
-        ]
+        self.tasks = []
+        self.stop()
+        self.disable()
 
     def loop(self):
         '''Iterates through task list indefinitely.'''
         while True:
             if len(self.tasks) > 0:
-                self.running = True
                 task = self.tasks.pop(0)
 
                 if len(task) == 1:
@@ -416,10 +419,7 @@ class GalilAxis(GalilAbstractAxis):
                     # execute task with arguments
                     task[0](*task[1:])
 
-                time.sleep(0.01)
-
-            else:
-                self.running = False
+            time.sleep(0.01)
 
     ##
     # Methods
@@ -453,7 +453,8 @@ class GalilAxis(GalilAbstractAxis):
     def home(self, speed, torque):
         '''Finds left and right limits.'''
         def blockUntilTorque(torque):
-            while (abs(self.torque) < torque):
+            init_time = time.time()
+            while (abs(self.torque) < torque) and ((time.time() - init_time) < 5):
                 time.sleep(0.1)
 
         task = [
@@ -498,7 +499,7 @@ class GalilAxis(GalilAbstractAxis):
                 ('position_absolute', self.limit * pos),
                 ('speed', speed),
                 (self.enable,),
-                (self.begin,)
+                (self.begin,),
                 (self.wait,),
                 (self.disable,)
             ]
