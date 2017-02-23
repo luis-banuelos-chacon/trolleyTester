@@ -1,0 +1,1306 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"confi",
+				"config_path\tstatement"
+			],
+			[
+				"carriage",
+				"carriage_path\tstatement"
+			],
+			[
+				"W",
+				"WritingSystem\tclass"
+			],
+			[
+				"ob",
+				"ConfigurableObject"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"conta",
+				"container-fluid \tBootstrap 4 Class"
+			],
+			[
+				"nvc",
+				"navbarCollapse"
+			],
+			[
+				"float",
+				"float-right \tBootstrap 4 Class"
+			],
+			[
+				"btn-outline",
+				"btn-outline-primary \tBootstrap 4 Class"
+			],
+			[
+				"displa",
+				"displayEffect"
+			],
+			[
+				"Con",
+				"Configuration\tclass"
+			],
+			[
+				"Prin",
+				"PrintModeGenerator\tclass"
+			],
+			[
+				"Print",
+				"PrintBedMotor\tclass"
+			],
+			[
+				"sub",
+				"subscribe"
+			],
+			[
+				"w3-theme",
+				"w3-theme-dark"
+			],
+			[
+				"drop",
+				"drop_distribution\tparam"
+			],
+			[
+				"Main",
+				"MainViewModel"
+			],
+			[
+				"value",
+				"valueAccessor"
+			],
+			[
+				"va",
+				"valueAccessor"
+			],
+			[
+				"bin",
+				"bindingContext"
+			],
+			[
+				"ins",
+				"insertFlatKey\tfunction"
+			],
+			[
+				"flat",
+				"flat_config\tstatement"
+			],
+			[
+				"dum",
+				"dumpDict\tfunction"
+			],
+			[
+				"Stat",
+				"StatusBarViewModel"
+			],
+			[
+				"message",
+				"message_cbs"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"Inter",
+				"InteractiveConsole\tclass"
+			],
+			[
+				"Intera",
+				"InteractiveInterpreter\tclass"
+			],
+			[
+				"Connection",
+				"ConnectionErrorAlert"
+			],
+			[
+				"err",
+				"error_cb"
+			],
+			[
+				"event",
+				"event_manager\tmodule"
+			],
+			[
+				"d",
+				"dumps\tfunction"
+			],
+			[
+				"ws",
+				"wsd\tstatement"
+			],
+			[
+				"server",
+				"server_close\tfunction"
+			],
+			[
+				"Webso",
+				"WebsocketServer\tclass"
+			],
+			[
+				"HTTP",
+				"HTTPRequestHandler\tclass"
+			],
+			[
+				"SimpleH",
+				"SimpleHTTPRequestHandler\tclass"
+			],
+			[
+				"Simple",
+				"SimpleHTTPServer\tmodule"
+			],
+			[
+				"con",
+				"context"
+			],
+			[
+				"send",
+				"sendMessage"
+			],
+			[
+				"scro",
+				"scrollTop\t.scrollTop()"
+			],
+			[
+				"cons",
+				"console_out"
+			],
+			[
+				"w3-br",
+				"w3-border-theme"
+			],
+			[
+				"selec",
+				"selectTab"
+			],
+			[
+				"w3-td",
+				"w3-theme-dark"
+			],
+			[
+				"w3-layout",
+				"w3-layout-cell"
+			],
+			[
+				"close",
+				"close_cb"
+			],
+			[
+				"We",
+				"WwbSocketLink"
+			],
+			[
+				"open",
+				"openCallback"
+			],
+			[
+				"com",
+				"heroes.component\tscript"
+			],
+			[
+				"Pri",
+				"PrintEngine\tclass"
+			],
+			[
+				"thread",
+				"thread_running\tstatement"
+			],
+			[
+				"en",
+				"endSwathState\tfunction"
+			],
+			[
+				"hea",
+				"heatSpreadState\tfunction"
+			],
+			[
+				"spr",
+				"spreadState\tfunction"
+			],
+			[
+				"swa",
+				"swathState\tfunction"
+			],
+			[
+				"pre",
+				"preheatState\tfunction"
+			],
+			[
+				"class",
+				"classmethod\tclass"
+			],
+			[
+				"Sin",
+				"SingletonType\tclass"
+			],
+			[
+				"prin",
+				"print_motor\tstatement"
+			],
+			[
+				"sup",
+				"supply_motor\tstatement"
+			],
+			[
+				"print",
+				"print_lamp\tstatement"
+			],
+			[
+				"over",
+				"runOverheadLamp\tfunction"
+			],
+			[
+				"fu",
+				"fuse_lamps\tstatement"
+			],
+			[
+				"do",
+				"doFwPID\tfunction"
+			],
+			[
+				"temp",
+				"temp_target\tparam"
+			],
+			[
+				"time",
+				"time_target\tstatement"
+			],
+			[
+				"plot",
+				"plot_path\tparam"
+			],
+			[
+				"pmg",
+				"PrintModeGenerator\tclass"
+			],
+			[
+				"gener",
+				"generatePrintModeXML\tfunction"
+			],
+			[
+				"all",
+				"all_inks\tstatement"
+			],
+			[
+				"m",
+				"m_size"
+			],
+			[
+				"pr",
+				"priority\tstatement"
+			],
+			[
+				"Pr",
+				"PrintModeGenerator\tclass"
+			],
+			[
+				"stat",
+				"start\tfunction"
+			],
+			[
+				"Supp",
+				"SupplyOverheadLamp\tclass"
+			],
+			[
+				"P",
+				"PrintOverheadLamp\tclass"
+			],
+			[
+				"Carr",
+				"CarriageMotor\tclass"
+			],
+			[
+				"__",
+				"__hash__\tfunction"
+			],
+			[
+				"Sup",
+				"SupplyBedMotor\tclass"
+			],
+			[
+				"Conf",
+				"ConfigurableObject\tclass"
+			],
+			[
+				"NotI",
+				"NotImplementedError\tclass"
+			],
+			[
+				"Over",
+				"OverheadLamp\tclass"
+			],
+			[
+				"key",
+				"key_map\tstatement"
+			],
+			[
+				"obj",
+				"obj_name\tstatement"
+			],
+			[
+				"Timeou",
+				"TimeoutError\tclass"
+			],
+			[
+				"T",
+				"TimeoutError\tclass"
+			],
+			[
+				"__get",
+				"__getattr__"
+			],
+			[
+				"ini",
+				"initialized\tstatement"
+			],
+			[
+				"BUFE",
+				"BUFFER_SIZE\tstatement"
+			],
+			[
+				"SOCK",
+				"SOCK_STREAM\tinstance"
+			],
+			[
+				"curPrin",
+				"curPrintZoneTempLast"
+			],
+			[
+				"cur",
+				"curOverheadTimeTarget"
+			],
+			[
+				"white",
+				"whitePointTemp"
+			],
+			[
+				"END_OF",
+				"END_OF_SWATH"
+			],
+			[
+				"SYNC",
+				"SYNC_BEGIN_OF_PAGE"
+			],
+			[
+				"HEAT",
+				"HEAT_SWATH"
+			],
+			[
+				"lep",
+				"lepton_server"
+			],
+			[
+				"mppFu",
+				"mppFuseLampTrailing"
+			],
+			[
+				"setPwmRa",
+				"setPwmRampStep"
+			],
+			[
+				"drs",
+				"doubleReverseSpread"
+			],
+			[
+				"msa",
+				"mppSpreadAfter"
+			],
+			[
+				"drag",
+				"dragonPrintConfig"
+			],
+			[
+				"su",
+				"supplyTemp"
+			],
+			[
+				"swi",
+				"switchOff"
+			],
+			[
+				"END",
+				"END_OF_SWATH"
+			],
+			[
+				"SYN",
+				"SYNC_END_OF_SWATH"
+			],
+			[
+				"HEA",
+				"HEAT_SPREAD"
+			],
+			[
+				"doufow",
+				"doubleForwardLift"
+			],
+			[
+				"double",
+				"doubleReverseSpread"
+			],
+			[
+				"saw",
+				"swathEnd"
+			],
+			[
+				"traili",
+				"trailingOnArea"
+			],
+			[
+				"ledain",
+				"leadingOnArea"
+			],
+			[
+				"BE",
+				"BEGIN_OF_SWATH"
+			],
+			[
+				"SYNC_",
+				"SYNC_BEGIN_OF_SWATH"
+			],
+			[
+				"printPage",
+				"printPageBackGround"
+			],
+			[
+				"doubleFor",
+				"doubleForwardSpread"
+			],
+			[
+				"doubleRever",
+				"doubleReverseSpread"
+			],
+			[
+				"total",
+				"totalLayers"
+			],
+			[
+				"carrLead",
+				"carrLeadingLampClearsPongoRight"
+			],
+			[
+				"mppfuse",
+				"mppFuseLampTrailing"
+			],
+			[
+				"carrtraili",
+				"carrTrailingLampClearsPongoRight"
+			],
+			[
+				"carrleadin",
+				"carrLeadingLampClearsPongoRight"
+			],
+			[
+				"carrtraillamclea",
+				"carrTrailingLampClearsPongoRight"
+			],
+			[
+				"carrTrail",
+				"carrTrailingLampClearsPongoLeft"
+			],
+			[
+				"mppFuseLa",
+				"mppFuseLampLeading"
+			],
+			[
+				"carrClea",
+				"carrClearsPongoRight"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "py",
+		"selected_items":
+		[
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"pain",
+				"Package Control: Install Package"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"sass",
+				"Set Syntax: Sass"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"sjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"emmet",
+				"Set Syntax: Emmet"
+			],
+			[
+				"json",
+				"JSON Reindent: reindent file or selection"
+			],
+			[
+				"css\t",
+				"Set Syntax: CSS"
+			],
+			[
+				"sidb",
+				"View: Toggle Side Bar"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"reinde",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"pa in",
+				"Package Control: Install Package"
+			],
+			[
+				"tcl",
+				"Set Syntax: Tcl"
+			],
+			[
+				"javs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"ts",
+				"Set Syntax: TypeScript"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"ena",
+				"Package Control: Enable Package"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"pack di",
+				"Package Control: Disable Package"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"syn c",
+				"Set Syntax: C"
+			],
+			[
+				"hex",
+				"Hex Viewer: Set Bits Per Group"
+			],
+			[
+				"acti",
+				"Material Theme: Activate theme"
+			],
+			[
+				"mater",
+				"Material Theme: Activate theme"
+			],
+			[
+				"paen",
+				"Package Control: Enable Package"
+			],
+			[
+				"pains",
+				"Package Control: Install Package"
+			],
+			[
+				"packa disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"git",
+				"Git: Gitk"
+			],
+			[
+				"ma",
+				"Material Theme: Configuration"
+			],
+			[
+				"materi",
+				"Material Theme: Configuration"
+			],
+			[
+				"material",
+				"Material Theme: Activate theme"
+			],
+			[
+				"pAins\t",
+				"Package Control: Install Package"
+			],
+			[
+				"paremo\t",
+				"Package Control: Remove Package"
+			],
+			[
+				"paina",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"paremo",
+				"Package Control: Remove Package"
+			],
+			[
+				"pa ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst\t",
+				"Package Control: Install Package"
+			],
+			[
+				"shell",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"compa",
+				"Compare with..."
+			],
+			[
+				"pyt\t",
+				"Set Syntax: Python"
+			],
+			[
+				"yaml",
+				"Set Syntax: YAML"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"git dif",
+				"Git: Diff Current File"
+			],
+			[
+				"pa insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git bla",
+				"Git: Blame"
+			],
+			[
+				"gcb",
+				"Git: Change Branch"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add all",
+				"Git: Add All"
+			],
+			[
+				"git che",
+				"Git: Change Branch"
+			],
+			[
+				"pack insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"ana l",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				"ana auto",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"git ",
+				"Git: Commit"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
+			[
+				"git bran",
+				"Git: New Branch"
+			],
+			[
+				"gcb ",
+				"Git: Change Branch"
+			],
+			[
+				"gmb",
+				"Git: Merge Branch"
+			],
+			[
+				"ga.",
+				"Git: Add..."
+			],
+			[
+				"gs",
+				"Git: Status"
+			],
+			[
+				"git statu",
+				"Git: Status"
+			],
+			[
+				"new vie",
+				"File: New View into File"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"anaconda",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"pa inst",
+				"Package Control: Install Package"
+			],
+			[
+				"pa disc",
+				"Package Control: Discover Packages"
+			],
+			[
+				"vm",
+				"View: Toggle Menu"
+			],
+			[
+				"ana disa",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				"PA INS",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 503.0
+	},
+	"console":
+	{
+		"height": 475.0,
+		"history":
+		[
+			"sys",
+			"clear",
+			"self",
+			"dir(self)",
+			"dir()",
+			"__dir__",
+			"dict",
+			"help",
+			"clear",
+			"reindent",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Z/Git/trolleyTester"
+	],
+	"file_history":
+	[
+		"/Z/Git/pyDal/main.py",
+		"/C/Users/banuelol/AppData/Roaming/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/home/luis/Git/pyDal/defaults.json",
+		"/home/luis/Git/pyDal/base.py",
+		"/home/luis/Git/pyDal/dalmata/pm_generator.py",
+		"/home/luis/Git/pyDal/subsystems/__init__.py",
+		"/home/luis/Git/pyDal/subsystems/servicing.py",
+		"/home/luis/Git/pyDal/config.json",
+		"/home/luis/Git/pyDal/interface/tcl_link.py",
+		"/home/luis/Git/pyDal/main.py",
+		"/home/luis/Git/pyDal/subsystems/motors.py",
+		"/home/luis/Git/pyDal/subsystems/writing_system.py",
+		"/home/luis/Git/pyDal/subsystems/overhead_lamps.py",
+		"/home/luis/Git/pyDal/subsystems/fuse_lamps.py",
+		"/home/luis/Git/pyDal/web-v2/js/app/main.js",
+		"/home/luis/Git/pyDal/web-v2/js/app.js",
+		"/home/luis/Git/pyDal/web-v2/css/app.css",
+		"/home/luis/Git/pyDal/web-v2/app.html",
+		"/home/luis/Git/pyDal/web-v2/docs/examples/sticky-footer-navbar/index.html",
+		"/home/luis/Git/pyDal/web-v2/docs/examples/sticky-footer-navbar/sticky-footer-navbar.css",
+		"/home/luis/Git/pyDal/web-v1/index.html",
+		"/home/luis/Downloads/starter-template/index.html",
+		"/home/luis/Git/pyDal/web-v2/sass/components/_grid.scss",
+		"/home/luis/Git/pyDal/web-v2/sass/components/_variables.scss",
+		"/home/luis/Git/pyDal/web-v2/js/lib/materialize.js",
+		"/home/luis/Git/pyDal/web-v2/js/lib/hammer.js",
+		"/home/luis/Git/pyDal/web-v2/app.js",
+		"/home/luis/Git/pyDal/modules/configuration.py",
+		"/home/luis/Git/pyDal/web/index.html",
+		"/home/luis/Git/pyDal/web/link.js",
+		"/home/luis/Git/pyDal/dalmata/utilities.py",
+		"/home/luis/Git/pyDal/dalmata/print_engine.py",
+		"/home/luis/Git/pyDal/dalmata/web_engine.py",
+		"/home/luis/Git/pyDal/web/dalmata.js",
+		"/home/luis/Git/pyDal/modules/__init__.py",
+		"/home/luis/Git/pyDal/dalmata/__init__.py",
+		"/home/luis/Git/pyDal/modules/printmode_generator.py",
+		"/home/luis/Git/pyDal/web/utils.js",
+		"/home/luis/Git/pyDal/web/index.css",
+		"/home/luis/Git/pyDal/test.py",
+		"/home/luis/Git/pyDal/modules/event_manager.py",
+		"/home/luis/Git/pyDal/dalmata/web_engine_2.py",
+		"/home/luis/Git/pyDal/modules/websocket_server.py",
+		"/home/luis/Git/pyDal/web/index.js",
+		"/home/luis/Git/dalmata/lc.tcl",
+		"/home/luis/Git/pyDal/web/test.html",
+		"/home/luis/Git/tutorials/angular-qs/app/hero-detail.component.html",
+		"/home/luis/Git/tutorials/angular-qs/app/dashboard.component.html",
+		"/home/luis/Git/tutorials/angular-qs/app/dashboard.component.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/app.component.ts",
+		"/home/luis/Git/tutorials/angular-qs/index.html",
+		"/home/luis/Git/tutorials/angular-qs/app/heroes.component.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/hero.service.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/main.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/app.module.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/hero-detail.component.js",
+		"/home/luis/Git/tutorials/angular-qs/app/hero-detail.component.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/mock-heroes.ts",
+		"/home/luis/Git/tutorials/angular-qs/app/hero.ts",
+		"/home/luis/.config/sublime-text-3/Packages/User/TypeScript.sublime-settings",
+		"/home/luis/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/mnt/ssh/pdub/python/subsystems/overhead_lamps.py",
+		"/mnt/ssh/pdub/python/subsystems/fuse_lamps.py",
+		"/mnt/ssh/pdub/python/subsystems/writing_system.py",
+		"/mnt/ssh/pdub/python/dalmata.py",
+		"/home/luis/Git/pyDal/dalmata.py",
+		"/home/luis/Git/pyDal/modules/metas.py",
+		"/mnt/ssh/pdub/python/tcl_link.py",
+		"/mnt/ssh/prince/data/tmp/printer.log",
+		"/home/luis/Git/pyDal/modules/strings.py",
+		"/mnt/ssh/prince/alignment/align.tcl",
+		"/home/luis/Git/trolleyTester/views/axis_manual_control.py",
+		"/mnt/ssh/prince/data/tmp/fsmlog_peE_Fsm_1.log",
+		"/mnt/ssh/prince/data/tmp/dropDramShadow.log",
+		"/home/luis/Git/dalmata/handy1.3.jake.tcl",
+		"/home/luis/Git/nMSG/processors/dalmata.py",
+		"/home/luis/Git/dalmata/PrintModeGenerator_11.tcl",
+		"/home/luis/Git/pyDal/spiral.py",
+		"/home/luis/Git/pyDal/test.scm",
+		"/home/luis/Git/dalmata/masks/8.scm",
+		"/home/luis/Git/dalmata/MarMenorDM2_v0.45_Wipe40.xml",
+		"/home/luis/Git/dalmata/MarMenorDM2_v0.45_Wipe4.xml",
+		"/home/luis/Git/dalmata/MarMenorDM2_v0.45_Wipe4_try_faster.xml",
+		"/home/luis/Git/pyDal/modules/test.scm",
+		"/home/luis/Git/pyDal/masks/4.scm",
+		"/home/luis/Git/pyDal/masks/2.scm",
+		"/home/luis/Git/pyDal/masks/8.scm",
+		"/home/luis/Git/trolleyTester/modules/program_thread.py",
+		"/home/luis/Git/trolleyTester/views/__init__.py",
+		"/mnt/ssh/mrbonkers/MRBONKERS.tcl",
+		"/mnt/ssh/mrbonkers/PA12_2pass.tcl",
+		"/mnt/ssh/mrbonkers/x92a.tcl",
+		"/mnt/ssh/mrbonkers/x92a_2pass.tcl",
+		"/mnt/ssh/mrbonkers/metals/dalmata_params.tcl",
+		"/mnt/ssh/mrbonkers/lc.tcl",
+		"/mnt/ssh/mrbonkers/Derek.tcl",
+		"/home/luis/Git/pyDal/modules/exceptions.py",
+		"/home/luis/Git/slicerGUI/modules/controller.py",
+		"/home/luis/Git/trolleyTester/modules/galil_wrapper.py",
+		"/mnt/ssh/pdub/lc_winkles.tcl",
+		"/mnt/ssh/pdub/WINKLES.tcl",
+		"/home/luis/Git/pyDal/subsystems/overhead_lamp.py",
+		"/home/luis/Git/pyDal/subsystems/spreader.py",
+		"/home/luis/Git/pyDal/interface/__init__.py",
+		"/home/luis/Git/nMSG/config.py",
+		"/home/luis/Git/DalHelloWorld/main.py",
+		"/home/luis/Git/DalHelloWorld/hooks.py",
+		"/home/luis/Git/DalHelloWorld/missing_funcs/missing_funcs.c",
+		"/home/luis/Git/notes/dalmata_notes",
+		"/mnt/ssh/mpts/shared/tatooine/cv/dalmata/recipes/PA12_MF_KWrev4.tcl",
+		"/mnt/ssh/mpts/shared/tatooine/cv/dalmata/recipes/PA12new.tcl",
+		"/mnt/ssh/mpts/shared/tatooine/cv/dalmata/dev/dblogging_306.tcl",
+		"/mnt/ssh/mpts/shared/tatooine/cv/dalmata/dev/lc.tcl",
+		"/home/luis/Git/DalHelloWorld/dist/python-test/libpython2.7.so.1.0",
+		"/home/luis/Git/DalHelloWorld/dist/python-test/main",
+		"/mnt/ssh/mpts/shared/tatooine/cv/dalmata/lepton_mc/lc.tcl",
+		"/home/luis/Git/DalHelloWorld/main.c",
+		"/home/luis/Documents/Dalmata/Alignment/AlignmentPlotGenerator.py",
+		"/home/luis/.config/sublime-text-3/Packages/User/bh_core.sublime-settings",
+		"/home/luis/.config/sublime-text-3/Packages/BracketHighlighter/bh_core.sublime-settings",
+		"/home/luis/Shares/mpts/cv/dalmata/lepton_mc/lc.tcl",
+		"/home/luis/.config/sublime-text-3/Packages/GitGutter/GitGutter.sublime-settings",
+		"/home/luis/.config/sublime-text-3/Packages/User/GitGutter.sublime-settings",
+		"/home/luis/Git/nMSG/utils.py",
+		"/home/luis/Git/nMSG/msg.py",
+		"/home/luis/Git/tmp/temp.tcl",
+		"/home/luis/.config/sublime-text-3/Packages/Colorsublime/Colorsublime.sublime-settings",
+		"/home/luis/.config/sublime-text-3/Packages/User/Colorsublime.sublime-settings"
+	],
+	"find":
+	{
+		"height": 70.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"alignment_res",
+			"waves",
+			"Velocity",
+			"Vel",
+			"Hammer",
+			"div",
+			"define",
+			"Materialize",
+			"TclLink",
+			"_byteify",
+			"message_cbs",
+			"error_cbs",
+			"close_cbs",
+			"open_cbs",
+			"onMessage",
+			"onClose",
+			"onOpen",
+			"text",
+			"\">\n",
+			"white",
+			"Machine",
+			"id",
+			"']\n",
+			"open_cbs",
+			"this",
+			"message",
+			"none",
+			"self..",
+			"this",
+			"12",
+			"avg_layer_time",
+			"9",
+			"HTTPRequest",
+			"configureServos",
+			"self",
+			"_this",
+			"self",
+			"Console",
+			"this",
+			"div",
+			"\"",
+			"li",
+			"my-heroes",
+			"self.s_lamp",
+			"pid",
+			"state",
+			"cls",
+			"SingletonType",
+			"TclLink",
+			"wipeEvery",
+			"kernel",
+			"args",
+			"range",
+			"f_size",
+			"mask",
+			"dragonPrintConfig",
+			"mc[segment]",
+			"self.master_curve",
+			"PrintBedMotor",
+			"elevatorMotorFactor",
+			"state",
+			"thermalAfter",
+			"scottyMode",
+			"heatAfter",
+			"applyDynamicRatio",
+			"PrintBed",
+			"SupplyBed",
+			"dragonPrint",
+			"dragonPrintConfig",
+			"dynamicPrintmode",
+			"createDpm",
+			"configureSer",
+			"_conf_tree",
+			"movePowder",
+			"dropSupply",
+			"movePowder",
+			"spread",
+			"initDalmata",
+			"movePowder",
+			"backlash",
+			"elevatorMotorFactorBed",
+			"spreadMotorEncoderRatio",
+			"SupplyBed",
+			"nozzle",
+			"movePowder",
+			"dropSupply",
+			"movePowder",
+			"dropSupply",
+			"spread",
+			"initDalmata",
+			"dropSupply",
+			"spread",
+			"initDalmata",
+			"BedMotor",
+			"SpreadMotor",
+			"initDalmata",
+			"definitiveSwath",
+			"initDalmata",
+			"IServoMotor",
+			"SupplyMotor",
+			"IServoMotor_MODE_POSITION_ACCURATE",
+			"SpreadMotor",
+			"SupplyMotor",
+			"initDalmata",
+			"spread",
+			"   ",
+			"definitiveSwath",
+			"Lead",
+			"lead",
+			"FUSE",
+			"FUSE {",
+			"ScanAxis",
+			"getDalCarrPos",
+			"configureServos",
+			"0",
+			"self",
+			"name",
+			"attr",
+			"initDalmata",
+			"GLIBC_2.7",
+			"GLIBC_2.6",
+			"GLIBC_2.15",
+			".gnu.version_r",
+			"configureServos",
+			"pwm",
+			"curOverheadTimeTarget",
+			"Overhead",
+			"curOverheadTimeTarget"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"axes",
+			"self",
+			"self.",
+			"item",
+			"files",
+			"item",
+			"files",
+			"dpi",
+			"log",
+			"print_offset_x",
+			"spit_offset_x",
+			"spit_offset-x",
+			"print_width",
+			"print_height",
+			"pen_dpi",
+			"machine['dpi']",
+			"machine['pongo_size']",
+			"pongo_size"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 70.0
+	},
+	"input":
+	{
+		"height": 64.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 71.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 116.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 126.0
+	},
+	"pinned_build_system": "Anaconda Python Builder",
+	"project": "trolleyTester.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"utils",
+				"dalmata/utilities.py"
+			],
+			[
+				"util",
+				"dalmata/utilities.py"
+			],
+			[
+				"printmode_ge",
+				"modules/printmode_generator.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Z:\\Git\\pyDal\\pyDal.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 45.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 374.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 236.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

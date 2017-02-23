@@ -85,7 +85,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
                 'default': 0,
                 'type': 'integer',
                 'suffix': 'ms',
-                'step': 1
+                'step': 100
             },
             'axis': {
                 'default': 0,
@@ -232,7 +232,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
             'args': [0 for arg in self.actions.items()[0]]
         }
 
-        self.program.insert(row, task)
+        self.program.appendtask)
         self.endInsertRows()
 
     def removeRow(self, row, parent=None):

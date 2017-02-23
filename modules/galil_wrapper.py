@@ -169,7 +169,7 @@ class GalilAbstractAxis(GalilController):
         '''Blocks until the motion completes.'''
         if blocking:
             while int(float(self.command('MG_BG' + self._axis))):
-                time.sleep(0.001)
+                time.sleep(0.01)
         else:
             return int(float(self.command('MG_BG' + self._axis)))
 
@@ -474,7 +474,7 @@ class GalilAxis(GalilAbstractAxis):
             (self.stop,),
             (self.wait,),
             (self.disable,),
-            ('limit', 'position'),
+            ('home_limit', 'position'),
             ('homed', True)
         ]
         self.tasks.extend(task)
@@ -487,8 +487,7 @@ class GalilAxis(GalilAbstractAxis):
                 ('speed', speed),
                 (self.enable,),
                 (self.begin,),
-                (self.wait,),
-                (self.disable,)
+                (self.wait,)
             ]
             self.tasks.extend(task)
 
@@ -500,8 +499,7 @@ class GalilAxis(GalilAbstractAxis):
                 ('speed', speed),
                 (self.enable,),
                 (self.begin,),
-                (self.wait,),
-                (self.disable,)
+                (self.wait,)
             ]
             self.tasks.extend(task)
 

@@ -6,7 +6,7 @@ import time
 
 class AxisTwoState(View['AxisTwoState']):
 
-    _refresh_rate = 100
+    _refresh_rate = 500
 
     def __init__(self, axis, name, parent=None):
         super(AxisTwoState, self).__init__(parent)
@@ -42,6 +42,7 @@ class AxisTwoState(View['AxisTwoState']):
 
         # tool box changed
         self.toolBox.currentChanged.connect(self.toolBoxChanged)
+        self.toolBoxChanged(False)
 
         # connect window closing event
         if parent:
@@ -52,10 +53,10 @@ class AxisTwoState(View['AxisTwoState']):
 
         settings.beginGroup(self.name)
         self._axis.conversion_factor = float(settings.value('conversion_factor', 1.0).toPyObject())
+        self._axis.home_limit = float(settings.value('home_limit', 1).toPyObject())
         self.strokeSpinBox.setValue(float(settings.value('stroke', 1).toPyObject()))
         self.speedSpinBox.setValue(float(settings.value('speed', 1).toPyObject()))
         self.homingTorqueSpinBox.setValue(float(settings.value('homing_torque', 1).toPyObject()))
-        self.limitSpinBox.setValue(float(settings.value('limit', 1).toPyObject()))
         self._axis.is_homed = bool(settings.value('is_homed', False).toPyObject())
         settings.endGroup()
 
@@ -67,13 +68,14 @@ class AxisTwoState(View['AxisTwoState']):
         settings.setValue('stroke', self.strokeSpinBox.value())
         settings.setValue('speed', self.speedSpinBox.value())
         settings.setValue('homing_torque', self.homingTorqueSpinBox.value())
-        settings.setValue('limit', self.limitSpinBox.value())
+        settings.setValue('home_limit', self._axis.home_limit)
         settings.setValue('is_homed', self._axis.is_homed)
         settings.endGroup()
 
     def toolBoxChanged(self, index):
         if self.toolBox.currentWidget() is self.configurationWidget:
             self.convFactorSpinBox.setValue(float(self._axis.conversion_factor))
+            self.limitSpinBox.setValue(self._axis.home_limit)
 
     def showEvent(self, event):
         super(AxisTwoState, self).showEvent(event)

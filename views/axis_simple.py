@@ -4,7 +4,7 @@ from . import View
 
 class AxisSimple(View['AxisSimple']):
 
-    _refresh_rate = 100
+    _refresh_rate = 500
 
     def __init__(self, axis, name, parent=None):
         super(AxisSimple, self).__init__(parent)
@@ -44,6 +44,7 @@ class AxisSimple(View['AxisSimple']):
 
         # tool box changed
         self.toolBox.currentChanged.connect(self.toolBoxChanged)
+        self.toolBoxChanged(False)
 
         # connect window closing event
         if parent:

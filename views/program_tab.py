@@ -71,6 +71,7 @@ class ProgramTab(View['ProgramTab']):
         self.worker = ProgramThread(self.axes, self.model.program, loops, self)
         self.worker.started.connect(self.programStarted)
         self.worker.instruction_changed.connect(self.highlightInstruction)
+        self.worker.iteration_changed.connect(self.loopSpinBox.setValue)
         self.worker.finished.connect(self.programFinished)
         self.worker.finished.connect(self.worker.deleteLater)
         self.worker.start()

@@ -17,7 +17,7 @@
    <string notr="true">QAbstractSpinBox {
 	font: 11pt;
 	qproperty-maximum: 1000000;
-	qproperty-minimum: 0;
+	qproperty-minimum: -1000000;
 	qproperty-singleStep: 1;
 	border: 2px inset grey;
 	min-height: 32px;
@@ -104,6 +104,9 @@ QAbstractSpinBox::down-button {
            <italic>false</italic>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
          </property>
         </widget>
        </item>

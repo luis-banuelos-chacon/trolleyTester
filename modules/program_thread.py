@@ -5,6 +5,7 @@ import time
 class ProgramThread(QtCore.QThread):
 
     instruction_changed = QtCore.pyqtSignal(int)
+    iteration_changed = QtCore.pyqtSignal(int)
 
     def __init__(self, axes, program, loops, parent=None):
         super(ProgramThread, self).__init__(parent)
@@ -67,11 +68,13 @@ class ProgramThread(QtCore.QThread):
                 # wait until all axes finish execution:
                 for axis in self.axes.values():
                     while axis.running and self.running:
+                        time.sleep(0.01)
                         pass
 
                 start = time.time() * 1000.0
                 self.loop += 1
                 self.pc = 0
+                self.iteration_changed.emit(self.loop)
 
             if not self.loops == 0 and self.loop == self.loops:
                 break
