@@ -16,9 +16,3 @@ for ui in glob(join(path, '*.ui')):
     name = name.title().replace(' ', '').replace('_', '')
 
     View[name] = type(name, (base, form), {})
-
-# Import classes
-from .program_tab import ProgramTab
-from .connection_tab import ConnectionTab
-from .axis_simple import AxisSimple
-from .axis_two_state import AxisTwoState

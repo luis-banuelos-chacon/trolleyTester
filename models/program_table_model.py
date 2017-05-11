@@ -232,7 +232,7 @@ class ProgramTableModel(QtCore.QAbstractTableModel):
             'args': [0 for arg in self.actions.items()[0]]
         }
 
-        self.program.appendtask)
+        self.program.append(task)
         self.endInsertRows()
 
     def removeRow(self, row, parent=None):
